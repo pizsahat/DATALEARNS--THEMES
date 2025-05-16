@@ -1,0 +1,21 @@
+{
+  "name": "datalearns",
+  "version": "1.0.0",
+  "description": "tema buatan sahat",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "dev": "wp-scripts start",
+    "devFast": "wp-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sahat",
+  "license": "ISC",
+  "dependencies": {
+    "@glidejs/glide": "^3.6.2",
+    "@wordpress/scripts": "^30.0.2",
+    "normalize.css": "^8.0.1",
+    "swiper": "^11.1.14"
+  }
+}

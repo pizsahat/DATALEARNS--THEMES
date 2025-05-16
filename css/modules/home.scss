@@ -1,0 +1,112 @@
+.skills-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skills-content {
+  flex: 1;
+}
+
+.skills-content h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1e73be;
+}
+
+.skills-content h2 .highlight {
+  font-size: 4rem;
+  color: #28a745;
+}
+
+.skills-content p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.skills-image {
+  flex: 1;
+  display: flex; /* Tambahkan ini */
+  align-items: center;
+  justify-content: center;
+}
+
+.skills-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* For screens 530px and below */
+@media (max-width: 530px) {
+  .skills-section {
+    display: block;
+  }
+
+  .skills-content {
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .skills-content h2 {
+    font-size: 2.1rem;
+  }
+
+  .skills-content h2 .highlight {
+    font-size: 2.1rem;
+  }
+
+  .skills-content p {
+    font-size: 1rem;
+  }
+
+  .skills-image img {
+    display: none;
+  }
+}
+
+/* For screens 767px and below */
+@media (max-width: 767px) {
+  .skills-section {
+    display: block;
+  }
+
+  .skills-content h2 {
+    font-size: 2.1rem;
+  }
+
+  .skills-content h2 .highlight {
+    font-size: 2.1rem;
+  }
+
+  .skills-content p {
+    font-size: 1.1rem;
+  }
+
+  .skills-image img {
+    display: none;
+  }
+}
+
+/* For screens 960px and below */
+@media (max-width: 960px) {
+  .skills-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .skills-content h2 .highlight {
+    font-size: 2.5rem;
+  }
+
+  .skills-content p {
+    font-size: 1.15rem;
+  }
+
+  .skills-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}
