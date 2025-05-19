@@ -199,3 +199,107 @@ include_once get_template_directory() . '/inc/dashboard-datalearns/functions.php
 
 // CUSTOMIZE APPEARANCE
 require get_theme_file_path('/inc/customize-appearance/header.php');
+
+add_filter('register_post_type_args', function ($args, $post_type) {
+  if ('course' === $post_type) {
+    $args['template'] = array(
+      array('core/post-title', array(
+        'style' => array(
+          'spacing' => array(
+            'margin' => array(
+              'bottom' => 'var:preset|spacing|40'
+            )
+          )
+        )
+      )),
+      array('core/columns', array(), array(
+        array('core/column', array(
+          'width' => '66.66%',
+          'style' => array(
+            'border' => array('radius' => '4px'),
+            'spacing' => array(
+              'padding' => array(
+                'top' => 'var:preset|spacing|40',
+                'right' => 'var:preset|spacing|40',
+                'bottom' => 'var:preset|spacing|40',
+                'left' => 'var:preset|spacing|40'
+              )
+            ),
+            'backgroundColor' => 'background'
+          )
+        ), array(
+          array('core/paragraph', array(
+            'placeholder' => 'masukkan deskripsi course ini',
+          )),
+
+          array('core/heading', array(
+            'level' => 3,
+            'content' => 'Audience'
+          )),
+          array('core/list', array(), array(
+            array('core/list-item', array('placeholder' => 'masukkan audience course ini')),
+          )),
+
+          array('core/heading', array(
+            'level' => 3,
+            'content' => 'Prerequisites'
+          )),
+          array('core/list', array(), array(
+            array('core/list-item', array(
+              'placeholder' => 'masukkan syarat / requirement untuk mengikuti course ini'
+            )),
+          )),
+
+          array('core/heading', array(
+            'level' => 3,
+            'content' => 'What\'s Covered in This Course'
+          )),
+          array('core/paragraph', array(
+            'content' => 'At the end of this training, participants will have the knowledge and skills to :'
+          )),
+          array('core/list', array(), array(
+            array('core/list-item', array('placeholder' => 'masukkan cakupan dalam Kursus Ini')),
+          )),
+
+          array('core/heading', array(
+            'level' => 3,
+            'content' => 'Certification'
+          )),
+          array('core/paragraph', array(
+            'placeholder' => 'jelaskan sertifikat yang didapat dari course ini'
+          )),
+
+          array('core/shortcode', array('text' => '[course-syllabus]')),
+          array('core/separator'),
+          array('core/shortcode', array(
+            'text' => '[reels related_course_id= heading="Microlearning"]'
+          ))
+        )),
+
+        array('core/column', array(
+          'width' => '33.33%',
+          'style' => array(
+            'spacing' => array(
+              'padding' => array(
+                'top' => 'var:preset|spacing|40',
+                'right' => 'var:preset|spacing|40',
+                'bottom' => 'var:preset|spacing|40',
+                'left' => 'var:preset|spacing|40'
+              )
+            ),
+            'border' => array('radius' => '4px'),
+            'backgroundColor' => 'background'
+          )
+        ), array(
+          array('core/post-featured-image', array(
+            'style' => array(
+              'border' => array('radius' => '4px')
+            )
+          )),
+          array('core/shortcode', array('text' => '[course-info]'))
+        ))
+      ))
+    );
+  }
+  return $args;
+}, 20, 2);
