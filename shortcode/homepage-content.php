@@ -5,12 +5,12 @@ add_shortcode('page-banner-default', 'PageBannerDefault');
 function PageBannerDefault()
 {
     ob_start(); ?>
-    <div class="page-banner">
+    <div class="page-banner generic-content">
         <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri("images/bg_home.jpg") ?>)"></div>
         <div class="container ">
             <div class="skills-section">
                 <div class="skills-content">
-                    <h2>Tingkatkan Keterampilan <br /><span class="highlight">Big Data dan AI</span></h2>
+                    <h1 class="highlight-1">Tingkatkan Keterampilan <br /><span class="highlight-2">Big Data dan AI</span></h1>
                     <p>Jadilah bagian dari era AI dan pelajari cara menyelesaikan lebih banyak hal dengan terlibat dalam proyek interaktif, pelatihan mandiri, komunitas, dan banyak lagi.</p>
                 </div>
                 <div class="skills-image">

@@ -8,14 +8,12 @@
   flex: 1;
 }
 
-.skills-content h2 {
-  font-size: 2.5rem;
+.skills-content .highlight-1 {
   font-weight: bold;
   color: #1e73be;
 }
 
-.skills-content h2 .highlight {
-  font-size: 4rem;
+.skills-content .highlight-2 {
   color: #28a745;
 }
 
@@ -50,14 +48,6 @@
     margin-bottom: 20px;
   }
 
-  .skills-content h2 {
-    font-size: 2.1rem;
-  }
-
-  .skills-content h2 .highlight {
-    font-size: 2.1rem;
-  }
-
   .skills-content p {
     font-size: 1rem;
   }
@@ -73,14 +63,6 @@
     display: block;
   }
 
-  .skills-content h2 {
-    font-size: 2.1rem;
-  }
-
-  .skills-content h2 .highlight {
-    font-size: 2.1rem;
-  }
-
   .skills-content p {
     font-size: 1.1rem;
   }
@@ -92,14 +74,6 @@
 
 /* For screens 960px and below */
 @media (max-width: 960px) {
-  .skills-content h2 {
-    font-size: 1.5rem;
-  }
-
-  .skills-content h2 .highlight {
-    font-size: 2.5rem;
-  }
-
   .skills-content p {
     font-size: 1.15rem;
   }

@@ -50,10 +50,6 @@
   }
 
   .row.group.lesson .two-thirds {
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 550;
-    }
     .llms-video-wrapper {
       width: 100%;
       aspect-ratio: 16/9;
@@ -111,6 +107,9 @@
       padding: 10px 15px;
       border-bottom: 1px solid #ddd;
       font-size: 14px;
+
+      position: relative; /* Untuk positioning free-tag */
+      padding-right: 50px; /* Ruang untuk free-tag */
     }
 
     .item-course-section ul li:last-child {
@@ -266,6 +265,9 @@
       align-items: center;
       gap: 12px;
       font-size: 0.95rem;
+
+      white-space: normal; /* Mengubah nowrap ke normal agar text bisa wrap */
+      word-break: break-word; /* Memastikan long words tidak keluar container */
     }
 
     .item-course-section ul li .lesson-content .icon {
@@ -274,6 +276,8 @@
       justify-content: center;
       width: 20px;
       color: #6b7c93;
+
+      flex-shrink: 0; /* Mencegah icon menyusut */
     }
 
     .item-course-section ul li.disable {
@@ -336,13 +340,7 @@
 
   .llms-parent-course-link {
     .llms-lesson-link {
-      text-decoration: none;
-      background-color: rgba(115, 206, 162, 0.493);
-      padding: 5px 10px;
-      border-radius: 10px;
-    }
-    .llms-lesson-link:hover {
-      background-color: #34d286;
+      color: #007bff;
     }
   }
 
@@ -428,7 +426,6 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      font-size: 30px;
     }
     .llms-parent-course-link {
       max-width: 100%;
