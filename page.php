@@ -8,7 +8,7 @@ while (have_posts()) {
 
     if (!$has_shortcode_login && !$has_shortcode_register) {
 ?>
-        <div class="container container--narrow page-section">
+        <div class="container page-section">
         <?php
     }
         ?>

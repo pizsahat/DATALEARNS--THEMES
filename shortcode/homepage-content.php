@@ -7,7 +7,7 @@ function PageBannerDefault()
     ob_start(); ?>
     <div class="page-banner">
         <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri("images/bg_home.jpg") ?>)"></div>
-        <div class="container container--narrow ">
+        <div class="container ">
             <div class="skills-section">
                 <div class="skills-content">
                     <h2>Tingkatkan Keterampilan <br /><span class="highlight">Big Data dan AI</span></h2>

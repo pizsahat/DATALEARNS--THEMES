@@ -18,7 +18,7 @@ function format_course_type($text)
 
 ?>
 
-<div class="container container--narrow page-section mt40">
+<div class="container page-section mt40">
     <div class="archive-course-container">
         <?php
         $search_query = isset($_GET['q']) ? sanitize_text_field($_GET['q']) : '';

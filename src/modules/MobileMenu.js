@@ -14,16 +14,6 @@ class MobileMenu {
     this.openButton.classList.toggle("fa-bars");
     this.openButton.classList.toggle("fa-window-close");
     this.menu.classList.toggle("site-header__menu--active");
-
-    if (this.menu.classList.contains("site-header__menu--active")) {
-      this.logo.src = themeVars.defaultLogo;
-    } else {
-      if (window.pageYOffset > 50) {
-        this.logo.src = themeVars.scrollLogo;
-      } else {
-        this.logo.src = themeVars.scrollLogo;
-      }
-    }
   }
 }
 

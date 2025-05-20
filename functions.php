@@ -44,7 +44,7 @@ function pageBanner($args = NULL)
 ?>
   <div class="page-banner">
     <div class="page-banner__bg-image" style="background-image: url(<?php echo $args['photo'] ?>)"></div>
-    <div class="page-banner__content container container--narrow">
+    <div class="page-banner__content container">
       <h1 class="page-banner__title"><?php echo $args['title'] ?></h1>
       <div class="page-banner__intro">
         <p><?php echo $args['subtitle'] ?></p>
@@ -67,11 +67,6 @@ function university_files()
 
   ));
   wp_enqueue_script('theme-script', get_template_directory_uri() . '/js/scripts.js', array(), '1.0', true);
-
-  wp_localize_script('theme-script', 'themeVars', array(
-    'scrollLogo' => get_template_directory_uri() . '/images/DL247-logo_web.png',
-    'defaultLogo' => get_template_directory_uri() . '/images/datalearns247-logo-white-small-notagline-navbar.png'
-  ));
 }
 
 add_action('wp_enqueue_scripts', 'university_files');
@@ -213,68 +208,79 @@ add_filter('register_post_type_args', function ($args, $post_type) {
         )
       )),
       array('core/columns', array(), array(
-        array('core/column', array(
-          'width' => '66.66%',
-          'style' => array(
-            'border' => array('radius' => '4px'),
-            'spacing' => array(
-              'padding' => array(
-                'top' => 'var:preset|spacing|40',
-                'right' => 'var:preset|spacing|40',
-                'bottom' => 'var:preset|spacing|40',
-                'left' => 'var:preset|spacing|40'
+        array(
+          'core/column',
+          array(
+            'width' => '66.66%',
+            'style' => array(
+              'border' => array('radius' => '4px'),
+              'spacing' => array(
+                'padding' => array(
+                  'top' => 'var:preset|spacing|40',
+                  'right' => 'var:preset|spacing|40',
+                  'bottom' => 'var:preset|spacing|40',
+                  'left' => 'var:preset|spacing|40'
+                )
+              ),
+              'color' => array(
+                'background' => '#ffffff' // <-- warna putih hardcoded
               )
-            ),
-            'backgroundColor' => 'background'
-          )
-        ), array(
-          array('core/paragraph', array(
-            'placeholder' => 'masukkan deskripsi course ini',
-          )),
+            )
+          ),
 
-          array('core/heading', array(
-            'level' => 3,
-            'content' => 'Audience'
-          )),
-          array('core/list', array(), array(
-            array('core/list-item', array('placeholder' => 'masukkan audience course ini')),
-          )),
-
-          array('core/heading', array(
-            'level' => 3,
-            'content' => 'Prerequisites'
-          )),
-          array('core/list', array(), array(
-            array('core/list-item', array(
-              'placeholder' => 'masukkan syarat / requirement untuk mengikuti course ini'
+          array(
+            array('core/heading', array(
+              'level' => 3,
+              'content' => 'Course Overview'
             )),
-          )),
+            array('core/paragraph', array(
+              'placeholder' => 'masukkan deskripsi course ini',
+            )),
 
-          array('core/heading', array(
-            'level' => 3,
-            'content' => 'What\'s Covered in This Course'
-          )),
-          array('core/paragraph', array(
-            'content' => 'At the end of this training, participants will have the knowledge and skills to :'
-          )),
-          array('core/list', array(), array(
-            array('core/list-item', array('placeholder' => 'masukkan cakupan dalam Kursus Ini')),
-          )),
+            array('core/heading', array(
+              'level' => 3,
+              'content' => 'Audience'
+            )),
+            array('core/list', array(), array(
+              array('core/list-item', array('placeholder' => 'masukkan audience course ini')),
+            )),
 
-          array('core/heading', array(
-            'level' => 3,
-            'content' => 'Certification'
-          )),
-          array('core/paragraph', array(
-            'placeholder' => 'jelaskan sertifikat yang didapat dari course ini'
-          )),
+            array('core/heading', array(
+              'level' => 3,
+              'content' => 'Prerequisites'
+            )),
+            array('core/list', array(), array(
+              array('core/list-item', array(
+                'placeholder' => 'masukkan syarat / requirement untuk mengikuti course ini'
+              )),
+            )),
 
-          array('core/shortcode', array('text' => '[course-syllabus]')),
-          array('core/separator'),
-          array('core/shortcode', array(
-            'text' => '[reels related_course_id= heading="Microlearning"]'
-          ))
-        )),
+            array('core/heading', array(
+              'level' => 3,
+              'content' => 'What\'s Covered in This Course'
+            )),
+            array('core/paragraph', array(
+              'content' => 'At the end of this training, participants will have the knowledge and skills to :'
+            )),
+            array('core/list', array(), array(
+              array('core/list-item', array('placeholder' => 'masukkan cakupan dalam Kursus Ini')),
+            )),
+
+            array('core/heading', array(
+              'level' => 3,
+              'content' => 'Certification'
+            )),
+            array('core/paragraph', array(
+              'placeholder' => 'jelaskan sertifikat yang didapat dari course ini'
+            )),
+
+            array('core/shortcode', array('text' => '[course-syllabus]')),
+            array('core/separator'),
+            array('core/shortcode', array(
+              'text' => '[reels related_course_id= heading="Microlearning"]'
+            ))
+          )
+        ),
 
         array('core/column', array(
           'width' => '33.33%',
@@ -288,7 +294,9 @@ add_filter('register_post_type_args', function ($args, $post_type) {
               )
             ),
             'border' => array('radius' => '4px'),
-            'backgroundColor' => 'background'
+            'color' => array(
+              'background' => '#ffffff' // <-- warna putih hardcoded
+            )
           )
         ), array(
           array('core/post-featured-image', array(

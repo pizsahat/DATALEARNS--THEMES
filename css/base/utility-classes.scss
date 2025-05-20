@@ -5,24 +5,10 @@
   position: relative;
 }
 
-.container--narrow {
-  max-width: 1200px;
-}
-
-.container--article-detail {
-  max-width: 1200px;
-}
-
 .container--header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-}
-
-.section-break {
-  border: none;
-  border-top: 1px solid #ddd;
-  margin: 2.5rem 0;
 }
 
 .min-list {

@@ -210,6 +210,41 @@
       "wideSize": "1000px"
     }
   },
+  "styles": {
+    "blocks": {
+      "core/heading": {
+        "spacing": {
+          "margin": {
+            "bottom": "0.5rem"
+          }
+        }
+      },
+      "core/paragraph": {
+        "spacing": {
+          "margin": {
+            "bottom": "0.5rem",
+            "top": "0"
+          }
+        }
+      },
+      "core/list": {
+        "spacing": {
+          "margin": {
+            "top": "0",
+            "bottom": "1rem"
+          }
+        }
+      },
+
+      "core/post-featured-image": {
+        "spacing": {
+          "margin": {
+            "bottom": "1.5rem"
+          }
+        }
+      }
+    }
+  },
   "templateParts": [
     {
       "name": "header",

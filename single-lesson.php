@@ -27,7 +27,7 @@ while (have_posts()) {
 
 ?>
     <div class="section-course">
-        <div class="container container--narrow page-section generic-content">
+        <div class="container page-section generic-content">
             <h2><?php the_title(); ?></h2>
             <div class="row group lesson">
                 <div class="two-thirds">
