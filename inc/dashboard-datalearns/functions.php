@@ -29,14 +29,12 @@ function save_color_settings()
         wp_send_json_error("Invalid color data format!");
     }
 
-    // Sanitize and save each color
     update_option('datalearns_custom_link_color', sanitize_hex_color($color_settings['linkColor']));
     update_option('datalearns_custom_link_hover_color', sanitize_hex_color($color_settings['linkHoverColor']));
     update_option('datalearns_custom_heading_color', sanitize_hex_color($color_settings['headingColor']));
     update_option('datalearns_custom_body_text_color', sanitize_hex_color($color_settings['bodyTextColor']));
     update_option('datalearns_custom_content_bg_color', sanitize_hex_color($color_settings['contentBgColor']));
 
-    // Add these lines to your existing function
     update_option('datalearns_custom_nav_link_color', sanitize_hex_color($color_settings['navLinkColor']));
     update_option('datalearns_custom_nav_link_hover_color', sanitize_hex_color($color_settings['navLinkHoverColor']));
     update_option('datalearns_custom_nav_current_link_color', sanitize_hex_color($color_settings['navCurrentLinkColor']));
@@ -67,7 +65,6 @@ function apply_custom_colors()
     $body_text_color = get_option('datalearns_custom_body_text_color', '#212529');
     $content_bg_color = get_option('datalearns_custom_content_bg_color', '#ffffff');
 
-    // Add these lines
     $nav_link_color = get_option('datalearns_custom_nav_link_color', '#333333');
     $nav_link_hover_color = get_option('datalearns_custom_nav_link_hover_color', '#0a58ca');
     $nav_current_link_color = get_option('datalearns_custom_nav_current_link_color', '#000000');
@@ -88,21 +85,17 @@ add_action('wp_head', 'apply_custom_colors');
 
 function datalearns_enqueue_assets()
 {
-    // Cek jika kita di halaman admin DataLearns
     $screen = get_current_screen();
     if ($screen->id !== 'toplevel_page_datalearns') return;
 
-    // Path ke file CSS di folder assets
     $css_path = '/inc/dashboard-datalearns/asset/style.css';
 
-    // CSS Eksternal dari folder assets
     wp_enqueue_style(
         'datalearns-admin-style',
         get_template_directory_uri() . $css_path,
         array()
     );
 
-    // CSS Dinamis untuk font
     $header_font = get_option('datalearns_custom_header_font_family', '');
     $body_font = get_option('datalearns_custom_body_font_family', '');
 
@@ -253,10 +246,8 @@ add_action('wp_ajax_save_header_navigation', function () {
     wp_send_json_success();
 });
 
-// Register footer settings
 function register_footer_settings()
 {
-    // Register all footer settings
     register_setting('footer_settings_group', 'footer_logo');
     register_setting('footer_settings_group', 'footer_description');
     register_setting('footer_settings_group', 'footer_address');

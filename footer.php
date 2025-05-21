@@ -1,5 +1,7 @@
-<?php if (!is_page(array('login', 'register', 'account'))) : ?>
-  <footer class="modern-footer">
+<?php
+$show_footer = get_field('show_footer');
+if (($show_footer || $show_footer === null)) :
+?> <footer class="modern-footer">
     <div class="footer-container">
       <div class="footer-grid">
         <div class="footer-column footer-about">

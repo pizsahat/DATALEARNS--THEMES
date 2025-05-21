@@ -117,7 +117,6 @@
 </div>
 
 <?php
-// Get saved color values from database with default fallbacks
 $link_color = get_option('datalearns_custom_link_color', '#0d6efd');
 $link_hover_color = get_option('datalearns_custom_link_hover_color', '#0a58ca');
 $heading_color = get_option('datalearns_custom_heading_color', '#212529');
@@ -129,7 +128,6 @@ $nav_current_link_color = get_option('datalearns_custom_nav_current_link_color',
 ?>
 
 <script>
-    // Load saved color values from PHP
     const savedColorSettings = {
         linkColor: '<?php echo esc_js($link_color); ?>',
         linkHoverColor: '<?php echo esc_js($link_hover_color); ?>',
@@ -191,9 +189,7 @@ $nav_current_link_color = get_option('datalearns_custom_nav_current_link_color',
         document.querySelector('label[for="nav-current-link-color"] small').textContent = this.value;
     });
 
-    // Initialize the color values and preview
     window.addEventListener('DOMContentLoaded', function() {
-        // Set colors from database values
         if (savedColorSettings.linkColor) {
             const linkColorInput = document.getElementById('link-color');
             linkColorInput.value = savedColorSettings.linkColor;
@@ -261,7 +257,6 @@ $nav_current_link_color = get_option('datalearns_custom_nav_current_link_color',
         }
     });
 
-    // Add hover effect for links
     document.querySelectorAll('.link-preview').forEach(link => {
         link.addEventListener('mouseover', function() {
             const hoverColor = document.getElementById('link-hover-color').value;
@@ -287,7 +282,6 @@ $nav_current_link_color = get_option('datalearns_custom_nav_current_link_color',
     });
 
     function saveColorSettings() {
-        // Collect all color values
         const colorSettings = {
             linkColor: document.getElementById('link-color').value,
             linkHoverColor: document.getElementById('link-hover-color').value,
@@ -300,7 +294,6 @@ $nav_current_link_color = get_option('datalearns_custom_nav_current_link_color',
             navCurrentLinkColor: document.getElementById('nav-current-link-color').value
         };
 
-        // Convert to JSON string
         const colorSettingsJSON = JSON.stringify(colorSettings);
 
         fetch("<?php echo admin_url('admin-ajax.php'); ?>", {

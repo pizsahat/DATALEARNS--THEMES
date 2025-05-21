@@ -6,7 +6,7 @@ while (have_posts()) {
 ?>
 
     <div class="section-course">
-        <div class="container page-section generic-content">
+        <div class="container vertical-spacing generic-content">
             <div class="full-width">
                 <?php
                 the_content() ?>

@@ -67,7 +67,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Update preview saat memilih font
         document.getElementById("header-font-family").addEventListener("change", function() {
             const selectedFont = this.value;
             document.getElementById("header-font-preview").style.fontFamily = selectedFont;
@@ -78,7 +77,6 @@
             document.getElementById("body-font-preview").style.fontFamily = selectedFont;
         });
 
-        // Jika sudah ada font yang tersimpan, tampilkan di preview
         if (savedHeaderFont) {
             document.getElementById("header-font-preview").style.fontFamily = savedHeaderFont;
         }
@@ -86,7 +84,6 @@
             document.getElementById("body-font-preview").style.fontFamily = savedBodyFont;
         }
 
-        // Event listener untuk tombol save
         document.querySelectorAll(".btn-save").forEach(button => {
             button.addEventListener("click", function() {
                 const fontType = this.getAttribute("data-type");
@@ -124,7 +121,6 @@
                 allowClear: true
             });
 
-            // Event handler untuk perubahan font
             $('#header-font-family').on('change', function() {
                 const font = $(this).val();
                 $('#header-font-preview').css('font-family', font);
@@ -137,7 +133,6 @@
                 loadGoogleFont(font);
             });
 
-            // Set nilai awal jika ada
             if (savedHeaderFont) {
                 $('#header-font-family').val(savedHeaderFont).trigger('change');
             }
@@ -202,7 +197,6 @@
             });
     }
 
-    // Initialize when document is loaded
     document.addEventListener("DOMContentLoaded", function() {
         fetchGoogleFonts();
     });

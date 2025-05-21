@@ -27,7 +27,7 @@ while (have_posts()) {
 
 ?>
     <div class="section-course">
-        <div class="container page-section generic-content">
+        <div class="container vertical-spacing generic-content">
             <h1 style="margin-bottom:var(--wp--preset--spacing--40);" class="wp-block-post-title"><?php the_title(); ?></h1>
             <div class="row group lesson">
                 <div class="two-thirds">

@@ -208,7 +208,6 @@ function get_post_details($post_id)
                 'title' => title_link($post_id),
                 'previous_lesson' => $lesson->get_previous_lesson() === false ? 0 : $lesson->get_previous_lesson(),
                 'next_lesson' => $lesson->get_next_lesson() === false ? 0 : $lesson->get_next_lesson(),
-                // 'quiz' => $lesson->get_quiz(),
                 'lesson_type' => $lesson_type,
                 'is_complete' => $is_complete,
                 'body' => $body_content,

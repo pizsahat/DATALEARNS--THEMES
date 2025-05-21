@@ -35,12 +35,12 @@ function CourseSyllabus()
                         <?php
                         $current_user_id = get_current_user_id();
                         $student = new LLMS_Student($current_user_id);
-                        $lesson_count = count($lessons); // Total jumlah pelajaran
-                        $lesson_index = 0; // Inisialisasi indeks pelajaran
+                        $lesson_count = count($lessons);
+                        $lesson_index = 0;
 
                         if (!empty($lessons)) {
                             foreach ($lessons as $lesson) {
-                                $lesson_index++; // Increment indeks untuk setiap pelajaran
+                                $lesson_index++;
                                 $post_id = $lesson->get("id");
                                 $is_complete = $student->is_complete($post_id);
                                 $is_enrolled = llms_is_user_enrolled(get_current_user_id(), $post_id);

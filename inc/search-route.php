@@ -47,8 +47,7 @@ function apiSearchResults($data)
                 continue;
             }
 
-            // Ambil kategori
-            $categories = get_the_category(); // Tambahkan ini untuk memastikan variabel $categories terisi
+            $categories = get_the_category(); 
             $category_name = !empty($categories) ? esc_html($categories[0]->name) : '';
 
             array_push($results['contents'], array(

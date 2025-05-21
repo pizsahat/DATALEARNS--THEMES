@@ -4,6 +4,8 @@ add_shortcode('datalearns-my-courses', 'MyCourses');
 
 function MyCourses()
 {
+    ob_start();
+
     $current_user_id = get_current_user_id();
 
     $enrolled_courses = array();
@@ -45,7 +47,7 @@ function MyCourses()
                             <?php
                             if (class_exists('LLMS_Course')) {
                                 $course_dashboard = new LLMS_Course($course->ID);
-                                $percent_complete = $course_dashboard->get_percent_complete() ?? 0; // Default ke 0 jika null
+                                $percent_complete = $course_dashboard->get_percent_complete() ?? 0; 
                             } else {
                                 $percent_complete = 0;
                             }

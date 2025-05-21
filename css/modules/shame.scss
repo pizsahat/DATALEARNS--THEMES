@@ -12,15 +12,12 @@
   background-color: #dedede;
 }
 
-.page-section {
-  padding-top: 1.6rem;
+.vertical-spacing {
   margin-top: 80px;
-  padding-bottom: 1.6rem;
   min-height: 33vh;
 
   @include atSmall {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding: 2rem 0;
   }
 
   &--white {

@@ -14,6 +14,10 @@ require get_theme_file_path('/inc/search-route.php');
 require get_theme_file_path('/inc/lesson-route.php');
 require get_theme_file_path('/inc/course-shortcode.php');
 
+// Custom Field
+require get_theme_file_path('/inc/custom-field/setting-page.php');
+
+
 function university_custom_rest()
 {
   register_rest_field('post', 'authorName', array(

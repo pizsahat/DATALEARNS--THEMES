@@ -8,7 +8,6 @@ function get_lesson_completion_engagement()
 {
     global $wpdb;
 
-    // Hitung penyelesaian lesson bulan ini
     $current_month_start = date('Y-m-01');
     $current_month_end = date('Y-m-t 23:59:59');
 
@@ -24,7 +23,6 @@ function get_lesson_completion_engagement()
         )
     );
 
-    // Hitung penyelesaian lesson bulan sebelumnya
     $prev_month_start = date('Y-m-01', strtotime('-1 month'));
     $prev_month_end = date('Y-m-t 23:59:59', strtotime('-1 month'));
 
@@ -40,7 +38,6 @@ function get_lesson_completion_engagement()
         )
     );
 
-    // Hitung persentase pertumbuhan
     if ($prev_month_completions == 0) {
         $growth_percent = $current_month_completions > 0 ? 100 : 0;
     } else {
@@ -55,10 +52,8 @@ function get_lesson_completion_engagement()
     );
 }
 
-// Function to get dynamic stats data from LifterLMS
 function get_lifterlms_dashboard_stats()
 {
-    // Get active users (students) count from last 7 days
     $student_query = new WP_User_Query([
         'meta_query' => [
             [
@@ -71,7 +66,6 @@ function get_lifterlms_dashboard_stats()
     ]);
     $active_users_count = $student_query->get_total();
 
-    // Get previous week's active user count for comparison
     $prev_week_query = new WP_User_Query([
         'meta_query' => [
             [
@@ -96,28 +90,24 @@ function get_lifterlms_dashboard_stats()
     }
 
 
-    // Get courses count directly from LifterLMS
     $courses_count = wp_count_posts('course')->publish ?? 0;
 
-    // Get new courses this month
     $new_courses = new WP_Query([
         'post_type' => 'course',
         'post_status' => 'publish',
         'date_query' => [
             [
-                'after' => date('Y-m-01') // First day of current month
+                'after' => date('Y-m-01') 
             ]
         ],
         'fields' => 'ids'
     ]);
     $new_courses_count = $new_courses->found_posts;
 
-    // Calculate engagement rate based on course completion data
     $total_enrollments = 0;
     $total_completions = 0;
 
     if (function_exists('llms_get_enrolled_students')) {
-        // Get all published courses
         $courses = get_posts([
             'post_type' => 'course',
             'post_status' => 'publish',
@@ -126,13 +116,11 @@ function get_lifterlms_dashboard_stats()
         ]);
 
         foreach ($courses as $course_id) {
-            // Get enrollment count using proper LifterLMS methods
             if (function_exists('llms_get_enrolled_students')) {
                 $enrolled_students = llms_get_enrolled_students($course_id);
                 $course_enrollments = is_array($enrolled_students) ? count($enrolled_students) : 0;
                 $total_enrollments += $course_enrollments;
 
-                // Count completions by checking each enrolled student's progress
                 if ($course_enrollments > 0 && function_exists('llms')) {
                     foreach ($enrolled_students as $student_id) {
                         $student = llms_get_student($student_id);
@@ -145,23 +133,19 @@ function get_lifterlms_dashboard_stats()
         }
     }
 
-    // Calculate engagement percentage
     $engagement_data = get_lesson_completion_engagement();
 
 
-    // Tambahkan error handling saat mengambil ukuran storage
     try {
         $upload_dir = wp_upload_dir();
         $storage_used = get_folder_size($upload_dir['basedir']);
-        $storage_used_gb = round($storage_used / 1073741824, 1); // Convert bytes to GB
+        $storage_used_gb = round($storage_used / 1073741824, 1);
     } catch (Exception $e) {
         $storage_used_gb = 0;
     }
 
-    // Fallback jika perhitungan gagal
     if ($storage_used_gb <= 0) {
-        // Coba alternatif lain untuk mendapatkan ukuran storage
-        $storage_used_gb = get_option('manual_storage_size', 2); // Default ke 2GB jika tidak ada
+        $storage_used_gb = get_option('manual_storage_size', 2); 
     }
 
     $storage_total = get_option('total_storage_gb', 16);
@@ -191,7 +175,6 @@ function get_lifterlms_dashboard_stats()
     );
 }
 
-// Helper function to calculate folder size
 function get_folder_size($folder)
 {
     if (!is_dir($folder)) {
@@ -234,10 +217,8 @@ function get_recent_activities()
             $username = $user ? $user->display_name : 'Unknown User';
             $avatar_url = $user ? get_avatar_url($user->ID) : 'https://ui-avatars.com/api/?name=Unknown+User&background=random';
 
-            // Get post title with fallback
             $post_title = $notification->post_title ?: 'Untitled Content';
 
-            // Map trigger types to readable messages
             $activity_message = match ($notification->trigger_id) {
                 'enrollment' => sprintf('Enrolled in course "%s"', esc_html($post_title)),
                 'lesson_complete' => sprintf('Completed lesson "%s"', esc_html($post_title)),
@@ -248,13 +229,11 @@ function get_recent_activities()
                 default => sprintf('Performed action on "%s"', esc_html($post_title))
             };
 
-            // Calculate human-friendly time difference
             $time_diff = human_time_diff(
                 strtotime($notification->created),
                 current_time('timestamp')
             ) . ' ago';
 
-            // Add icon based on activity type
             $activity_icon = match ($notification->trigger_id) {
                 'enrollment' => 'fas fa-door-open',
                 'lesson_complete' => 'fas fa-book',
@@ -292,7 +271,6 @@ function get_recent_activities()
     return ob_get_clean();
 }
 
-// Get the dynamic stats
 $stats = get_lifterlms_dashboard_stats();
 ?>
 
@@ -535,7 +513,7 @@ $stats = get_lifterlms_dashboard_stats();
 
                                     <div class="col-6">
                                         <?php
-                                        $is_editable = current_user_can('edit_courses'); // Atau ganti dengan capability yang sesuai
+                                        $is_editable = current_user_can('edit_courses');
                                         $card_content = '
                                             <div class="p-3 text-center rounded-3 interactive-card bg-success bg-opacity-10">
                                                 <div class="bg-success bg-opacity-10 p-2 rounded-circle d-inline-block mb-2">

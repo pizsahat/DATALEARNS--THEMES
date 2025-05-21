@@ -16,7 +16,7 @@ else :
   ));
 endif;
 ?>
-<div class="container page-section">
+<div class="container vertical-spacing">
   <?Php
   echo paginate_links();
   ?>
