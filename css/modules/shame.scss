@@ -15,22 +15,8 @@
 .vertical-spacing {
   margin-top: 80px;
   min-height: 33vh;
-
-  @include atSmall {
-    padding: 2rem 0;
-  }
-
-  &--white {
-    background-color: #fff;
-  }
-
-  &--beige {
-    background-color: $beige;
-  }
-
-  p:last-of-type {
-    margin-bottom: 0;
-  }
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .school-logo-text {
@@ -221,14 +207,12 @@
   }
 }
 
-/* Make Top WP Admin Bar Fixed on Mobile */
 @media screen and (max-width: 600px) {
   #wpadminbar {
     position: fixed;
   }
 }
 
-/* Seach Form */
 .search-form {
   background-color: #dedede;
   padding: 20px;
@@ -279,7 +263,6 @@
   opacity: 1;
 }
 
-/* Like Box */
 .generic-content .like-box {
   float: right;
   font-size: 1rem;

@@ -64,10 +64,10 @@ function CourseSyllabus()
                                                 <?php } ?>
                                             </span>
 
-                                            <?php echo esc_html($lesson->get('title')); ?>
+                                            <span class="title"><?php echo esc_html($lesson->get('title')); ?></span>
                                         </div>
 
-                                        <div>
+                                        <div class="lesson-meta">
                                             <?php if ($is_free && !$is_enrolled) { ?>
                                                 <span class="free-tag">Free</span>
                                             <?php } ?>

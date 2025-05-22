@@ -163,6 +163,7 @@
   flex: 1;
   padding: 15px 0;
   border-top: 1px solid #ddd;
+  gap: 10px;
 }
 
 .article-number {
@@ -171,10 +172,10 @@
   font-weight: bold;
   width: 50px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .article-content {
-  margin-left: 10px;
   flex-grow: 1;
 }
 
@@ -202,7 +203,7 @@
 
 @media (max-width: 768px) {
   .container-home {
-    padding: 50px 20px;
+    padding: 20px;
   }
 
   .container-home .content {

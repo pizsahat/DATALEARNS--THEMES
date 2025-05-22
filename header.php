@@ -11,7 +11,7 @@
   <?php
   $show_header = get_field('show_header');
   if (($show_header || $show_header === null)) {
-  ?> <header class="site-header fixed-header">
+  ?> <header class="site-header <?php echo get_theme_mod('enable_fixed_header') ? 'fixed-header' : ''; ?>">
       <div class="container container--header">
         <h1 class="school-logo-text float-left">
           <a class="site-footer__link" href="<?php echo site_url() ?>">

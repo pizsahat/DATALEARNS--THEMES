@@ -3,16 +3,6 @@
   .llms-syllabus-wrapper {
     display: none;
   }
-  h2 {
-    margin: 0px;
-    margin-bottom: 5px;
-  }
-  .container-course {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-    position: relative;
-  }
 
   .row.group.lesson {
     display: flex;
@@ -104,38 +94,40 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       padding: 10px 15px;
       border-bottom: 1px solid #ddd;
       font-size: 14px;
-
-      position: relative; /* Untuk positioning free-tag */
-      padding-right: 50px; /* Ruang untuk free-tag */
+      position: relative;
+      padding-right: 20px;
     }
 
-    .item-course-section ul li:last-child {
-      border-bottom: none;
+    .item-course-section ul li .lesson-content {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 15px;
+      min-width: 0;
     }
 
-    .item-course-section ul li .icon {
-      margin-right: 10px;
-      font-size: 16px;
+    .item-course-section ul li .free-tag,
+    .item-course-section ul li .lesson-progress {
+      white-space: nowrap;
+      margin-left: 10px;
     }
 
-    .item-course-section ul li.current-lesson {
-      background-color: #f0f8ff;
-      font-weight: bold;
-    }
-
-    .item-course-section ul li.disable {
-      color: #aaa;
-      pointer-events: none;
+    .lesson-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      white-space: nowrap;
     }
 
     .free-tag {
       background-color: #28a745;
       color: #fff;
       font-size: 12px;
-      padding: 2px 5px;
+      padding: 2px 6px;
       border-radius: 3px;
     }
 
@@ -266,8 +258,8 @@
       gap: 12px;
       font-size: 0.95rem;
 
-      white-space: normal; /* Mengubah nowrap ke normal agar text bisa wrap */
-      word-break: break-word; /* Memastikan long words tidak keluar container */
+      white-space: normal;
+      word-break: break-word;
     }
 
     .item-course-section ul li .lesson-content .icon {
@@ -277,7 +269,7 @@
       width: 20px;
       color: #6b7c93;
 
-      flex-shrink: 0; /* Mencegah icon menyusut */
+      flex-shrink: 0;
     }
 
     .item-course-section ul li.disable {
@@ -300,7 +292,6 @@
       text-decoration: none;
     }
 
-    /* Course Progress Styles */
     .llms-progress {
       margin-bottom: 2rem;
     }
