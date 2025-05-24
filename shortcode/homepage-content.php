@@ -1,80 +1,76 @@
 <?php
 
-add_shortcode('page-banner-default', 'PageBannerDefault');
-
-function PageBannerDefault()
+add_shortcode('list-course', 'ListCourse');
+function ListCourse($atts)
 {
-    ob_start(); ?>
-    <div class="page-banner generic-content">
-        <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri("images/bg_home.jpg") ?>)"></div>
-        <div class="container ">
-            <div class="skills-section">
-                <div class="skills-content">
-                    <h1 class="highlight-1">Tingkatkan Keterampilan <br /><span class="highlight-2">Big Data dan AI</span></h1>
-                    <p>Jadilah bagian dari era AI dan pelajari cara menyelesaikan lebih banyak hal dengan terlibat dalam proyek interaktif, pelatihan mandiri, komunitas, dan banyak lagi.</p>
-                </div>
-                <div class="skills-image">
-                    <img src="<?php echo get_theme_file_uri('/images/three-people.png') ?>" alt="Big Data and AI Image" />
-                </div>
-            </div>
-        </div>
-    </div>
-<?php
+    $atts = shortcode_atts(array(
+        'item' => 3,
+        'course_type' => '',
+        'skill_level' => '',
+        'search' => '',
+        'random' => 'true'
+    ), $atts);
+
+    ob_start();
+
+    // Build query args
+    $args = array(
+        'posts_per_page' => intval($atts['item']),
+        'post_type' => 'course',
+        'meta_query' => array()
+    );
+
+    // Add orderby random jika diperlukan
+    if ($atts['random'] === 'true') {
+        $args['orderby'] = 'rand';
+    }
+
+    // Filter berdasarkan course_type
+    if (!empty($atts['course_type'])) {
+        $args['meta_query'][] = array(
+            'key' => 'course_type',
+            'value' => format_course_type($atts['course_type']),
+            'compare' => 'LIKE',
+        );
+    }
+
+    // Filter berdasarkan skill_level
+    if (!empty($atts['skill_level'])) {
+        $args['meta_query'][] = array(
+            'key' => 'skill_level',
+            'value' => $atts['skill_level'],
+            'compare' => 'LIKE',
+        );
+    }
+
+    // Filter berdasarkan search query
+    if (!empty($atts['search'])) {
+        $args['s'] = $atts['search'];
+    }
+
+    $courseQuery = new WP_Query($args);
+
+    if ($courseQuery->have_posts()) {
+        echo '<div class="archive-course-container">';
+        while ($courseQuery->have_posts()) {
+            $courseQuery->the_post();
+            get_template_part('template-parts/item', 'course');
+        }
+        echo '</div>';
+    } else {
+        echo '<p>No courses found.</p>';
+    }
+
+    wp_reset_postdata();
     return ob_get_clean();
 }
 
-add_shortcode('introduction-banner-default', 'IntroductionBannerDefault');
+add_shortcode('list-content', 'ListContent');
 
-function IntroductionBannerDefault()
+function ListContent()
 {
     ob_start(); ?>
-    <div class="introduction-banner">
-        <img src="<?php echo get_theme_file_uri('/images/Datalearns247-247-24th.jpg') ?>" alt="banner Big Data and AI Image" />
-        <p>DataLearns247 is an educational program developed by Solusi247 which focuses on building Indonesian data talent through a curriculum based on experience in implementing big data and artificial intelligence</p>
-
-    </div>
-<?php
-    return ob_get_clean();
-}
-
-add_shortcode('home-course-default', 'HomeCourseDefault');
-
-function HomeCourseDefault()
-{
-    ob_start(); ?>
-    <div class="container-home course-section">
-        <h1>Our Courses</h1>
-        <div class="content-course">
-            <p>Start learning and mastering knowledge using a comprehensive curriculum to improve your skills</p>
-            <div class="course-container">
-
-                <?php
-                $homepageCourse = new WP_Query(array(
-                    'posts_per_page' => 3,
-                    'post_type' => 'course',
-                    'orderby' => 'rand'
-                ));
-
-                while ($homepageCourse->have_posts()) {
-                    $homepageCourse->the_post();
-                    get_template_part('template-parts/item', 'course');
-                }
-                ?>
-            </div>
-
-        </div>
-    </div>
-<?php
-    return ob_get_clean();
-}
-
-add_shortcode('home-content-default', 'HomeContentDefault');
-
-function HomeContentDefault()
-{
-    ob_start(); ?>
-    <div class="container-home">
-        <h1>OUR ARTICLES</h1>
+    <div class=" container-home">
         <div class="content">
             <div class="left">
                 <?php
@@ -181,22 +177,6 @@ function HomeContentDefault()
             </div>
         </div>
 
-    </div>
-<?php
-    return ob_get_clean();
-}
-
-add_shortcode('home-promo-default', 'HomePromoDefault');
-
-function HomePromoDefault()
-{
-    ob_start(); ?>
-    <div class="container-home promo-section">
-        <img src="<?php echo get_theme_file_uri('/images/let-collaborate--jul-01.png') ?>" alt="">
-        <div class="promo-description">
-            <h1>ACADEMIC PARTNERSHIP</h1>
-            <p>Helping the education institution in preparing students with the latest knowledge of Big Data and Artificial Intelligence to make them ready to enter the industrial world</p>
-        </div>
     </div>
 <?php
     return ob_get_clean();
