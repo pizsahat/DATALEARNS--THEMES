@@ -45,7 +45,7 @@ class Search {
   }
   getResults() {
     $.getJSON(
-      universityData.root_url +
+      datalearnsData.root_url +
         "/wp-json/wp/v2/search?q=" +
         this.searchField.val(),
       (results) => {
