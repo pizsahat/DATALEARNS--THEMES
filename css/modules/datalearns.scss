@@ -130,8 +130,8 @@
   justify-content: flex-end;
   text-decoration: none;
   margin-top: 20px;
-  font-weight: 300;
-  color: #00adcc;
+  font-weight: 600;
+  color: #005d6d;
 }
 
 .container-home .content .left hr {
@@ -144,6 +144,10 @@
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.card-article-detail p {
+  color: #000;
+  font-size: 16px;
 }
 .card-article-detail a {
   text-decoration: none;
@@ -166,7 +170,7 @@
 
 .article-number {
   font-size: 28px;
-  color: #00adcc;
+  color: #005d6d;
   font-weight: bold;
   width: 50px;
   text-align: center;
@@ -179,7 +183,7 @@
 
 .article-category {
   font-size: 12px;
-  color: #00adcc;
+  color: #005d6d;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -194,7 +198,7 @@
 
 .article-type {
   font-size: 12px;
-  color: #00adcc;
+  color: #005d6d;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -383,19 +387,23 @@
       background-color: #fff;
       font-family: Arial, sans-serif;
 
-      .last-accessed-details {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 12px 16px;
-        margin-top: 16px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition:
-          transform 0.3s,
-          box-shadow 0.3s;
+      .course-content {
+        padding: 20px;
+
+        .last-accessed-details {
+          background-color: #f9f9f9;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          padding: 12px 16px;
+          margin: 16px 0;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition:
+            transform 0.3s,
+            box-shadow 0.3s;
+        }
       }
 
       .last-accessed-details:hover {
@@ -451,41 +459,7 @@
     margin: 0;
   }
 }
-.course-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
 
-  .progress-bar-course {
-    margin-top: 10px;
-    height: 20px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-
-  .progress-line {
-    height: 100%;
-    background-color: #ddd;
-    position: relative;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(to right, #0073aa, #005f8c);
-    width: 0;
-    transition: width 0.5s ease;
-    border-radius: 10px 0 0 10px;
-  }
-
-  .progress-text {
-    font-size: 14px;
-    color: #333;
-    margin-top: 5px;
-    text-align: right;
-  }
-}
 .certificate-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -601,6 +575,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0 16px;
   }
 
   .course-title {
