@@ -114,7 +114,7 @@ function ListContent()
                     $homepageArticle->the_post();
                 ?>
                     <a href="<?php the_permalink() ?>">
-                        <img src="<?php the_post_thumbnail_url() ?>" alt="<?php the_title_attribute(); ?>">
+                        <img src="<?php echo get_the_post_thumbnail_url() ?>" alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true) ?: 'Ilustrasi untuk ' . get_the_title()); ?>">
                         <span class="sr-only"><?php the_title(); ?></span>
                     </a>
                     <div class="card-article-detail">

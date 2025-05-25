@@ -44,9 +44,9 @@ $button_text = $is_enrolled ? 'Continue Learning' : 'Explore Course';
                 </div>
             </div>
 
-            <h5 class="course-title">
+            <p class="course-title">
                 <a href="<?php the_permalink() ?>"><?php the_title() ?></a>
-            </h5>
+            </p>
 
 
         </div>

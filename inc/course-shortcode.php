@@ -11,7 +11,6 @@ function CourseSyllabus()
     }
     $object = new LLMS_Course($course_id); ?>
     <br>
-    <h3>Course Syllabus</h3>
     <div class="wrapper-syllabus-course">
         <?php
         $sections = $object->get_sections();
@@ -30,7 +29,7 @@ function CourseSyllabus()
                 }
         ?>
                 <div class="item-course-section">
-                    <h4><?php echo esc_html($section->get('title')); ?></h4>
+                    <p><?php echo esc_html($section->get('title')); ?></p>
                     <ul>
                         <?php
                         $current_user_id = get_current_user_id();
@@ -43,12 +42,14 @@ function CourseSyllabus()
                                 $lesson_index++;
                                 $post_id = $lesson->get("id");
                                 $is_complete = $student->is_complete($post_id);
-                                $is_enrolled = llms_is_user_enrolled(get_current_user_id(), $post_id);
+                                $is_enrolled = llms_is_user_enrolled($current_user_id, $post_id);
                                 $is_free = $lesson->is_free();
+
+                                $is_current = (get_permalink($post_id) === get_permalink());
+                                $is_disabled = (!$is_enrolled && !$is_free && !current_user_can('administrator'));
                         ?>
-                                <a href="<?php echo get_permalink($post_id); ?>"
-                                    class="<?php echo (!$is_enrolled && !$is_free && !current_user_can('administrator')) ? 'disabled-link' : ''; ?>">
-                                    <li class="<?php echo (get_permalink($post_id) === get_permalink()) ? 'current-lesson' : ''; ?> <?php echo (!$is_enrolled && !$is_free && !current_user_can('administrator')) ? 'disable' : ''; ?>">
+                                <li class="<?php echo $is_current ? 'current-lesson' : ''; ?> <?php echo $is_disabled ? 'disable' : ''; ?>">
+                                    <a href="<?php echo esc_url(get_permalink($post_id)); ?>" class="<?php echo $is_disabled ? 'disabled-link' : ''; ?>">
                                         <div class="lesson-content">
                                             <span class="icon">
                                                 <?php if ($is_enrolled) {
@@ -75,8 +76,8 @@ function CourseSyllabus()
                                                 <span class="lesson-progress"><?php echo $lesson_index . ' of ' . $lesson_count; ?></span>
                                             <?php } ?>
                                         </div>
-                                    </li>
-                                </a>
+                                    </a>
+                                </li>
                         <?php
                             }
                         } else {
