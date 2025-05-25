@@ -8,24 +8,22 @@ function ListCourse($atts)
         'course_type' => '',
         'skill_level' => '',
         'search' => '',
-        'random' => 'true'
+        'random' => 'true',
+        'enrolled' => '',
     ), $atts);
 
     ob_start();
 
-    // Build query args
     $args = array(
         'posts_per_page' => intval($atts['item']),
         'post_type' => 'course',
         'meta_query' => array()
     );
 
-    // Add orderby random jika diperlukan
     if ($atts['random'] === 'true') {
         $args['orderby'] = 'rand';
     }
 
-    // Filter berdasarkan course_type
     if (!empty($atts['course_type'])) {
         $args['meta_query'][] = array(
             'key' => 'course_type',
@@ -34,7 +32,6 @@ function ListCourse($atts)
         );
     }
 
-    // Filter berdasarkan skill_level
     if (!empty($atts['skill_level'])) {
         $args['meta_query'][] = array(
             'key' => 'skill_level',
@@ -43,9 +40,35 @@ function ListCourse($atts)
         );
     }
 
-    // Filter berdasarkan search query
     if (!empty($atts['search'])) {
         $args['s'] = $atts['search'];
+    }
+
+    $current_user_id = get_current_user_id();
+
+    if (!empty($atts['enrolled']) && $current_user_id) {
+        $enrolled_course_ids = array();
+        $not_enrolled_course_ids = array();
+
+        $all_courses = get_posts(array(
+            'post_type' => 'course',
+            'numberposts' => -1,
+            'fields' => 'ids',
+        ));
+
+        foreach ($all_courses as $course_id) {
+            if (llms_is_user_enrolled($current_user_id, $course_id)) {
+                $enrolled_course_ids[] = $course_id;
+            } else {
+                $not_enrolled_course_ids[] = $course_id;
+            }
+        }
+
+        if ($atts['enrolled'] === 'yes') {
+            $args['post__in'] = !empty($enrolled_course_ids) ? $enrolled_course_ids : array(-1);
+        } elseif ($atts['enrolled'] === 'no') {
+            $args['post__in'] = !empty($not_enrolled_course_ids) ? $not_enrolled_course_ids : array(-1);
+        }
     }
 
     $courseQuery = new WP_Query($args);
@@ -64,6 +87,7 @@ function ListCourse($atts)
     wp_reset_postdata();
     return ob_get_clean();
 }
+
 
 add_shortcode('list-content', 'ListContent');
 
@@ -90,7 +114,8 @@ function ListContent()
                     $homepageArticle->the_post();
                 ?>
                     <a href="<?php the_permalink() ?>">
-                        <img src="<?php the_post_thumbnail_url() ?>" alt="">
+                        <img src="<?php the_post_thumbnail_url() ?>" alt="<?php the_title_attribute(); ?>">
+                        <span class="sr-only"><?php the_title(); ?></span>
                     </a>
                     <div class="card-article-detail">
                         <p><?php echo esc_html(get_the_author()) . " - " . esc_html(get_the_date()); ?></p>

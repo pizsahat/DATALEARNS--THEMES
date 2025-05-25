@@ -106,7 +106,7 @@ function MyDashboard()
                                     <?php
                                     if (class_exists('LLMS_Course')) {
                                         $course_dashboard = new LLMS_Course($course->ID);
-                                        $percent_complete = $course_dashboard->get_percent_complete() ?? 0; 
+                                        $percent_complete = $course_dashboard->get_percent_complete() ?? 0;
                                     } else {
                                         $percent_complete = 0;
                                     }
