@@ -4,7 +4,8 @@
 <head>
   <?php wp_head(); ?>
   <meta charset="<?php bloginfo('charset') ?>">
-  <meta name="viewport" content="width=device-width, inital-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<?php bloginfo('description'); ?>">
 </head>
 
 <body <?php body_class() ?>>
@@ -79,7 +80,7 @@
                 echo '><a href="' . esc_url(site_url('/profile')) . '">Profile</a></li>';
 
                 echo '<li class="menu-item-has-children' . (is_page('my-dashboard') ? ' current-menu-item' : '') . '">';
-                echo '<a href="' . esc_url(site_url('/my-dashboard')) . '">My Dashboard <i class="fa-solid fa-angle-down"></i></a>';
+                echo '<a href="' . esc_url(site_url('/my-dashboard')) . '">My Dashboard <i class="fa fa-angle-down"></i></a>';
 
                 echo '<ul class="submenu">';
 

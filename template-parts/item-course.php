@@ -1,3 +1,8 @@
+<?php
+$current_user_id = get_current_user_id();
+$is_enrolled = $current_user_id && llms_is_user_enrolled($current_user_id, get_the_ID());
+$button_text = $is_enrolled ? 'Continue Learning' : 'Explore Course';
+?>
 <div class="course-card">
     <div class="course-image-wrapper">
         <a href="<?php the_permalink() ?>" class="image-link">
@@ -39,20 +44,38 @@
                 </div>
             </div>
 
-            <h3 class="course-title">
+            <h5 class="course-title">
                 <a href="<?php the_permalink() ?>"><?php the_title() ?></a>
-            </h3>
+            </h5>
 
 
         </div>
 
 
         <div class="course-action">
-            <?php if ($skill_level): ?>
+            <?php if ($is_enrolled): ?>
+                <?php
+                if (class_exists('LLMS_Course')) {
+                    $course_dashboard = new LLMS_Course($course_id);
+                    $percent_complete = $course_dashboard->get_percent_complete() ?? 0;
+                } else {
+                    $percent_complete = 0;
+                }
+                ?>
+                <div class="skill-progress">
+                    <div class="skill-info">
+                        <span class="skill-text">Progress Learning</span>
+                        <span class="skill-value"><?php echo esc_html($percent_complete); ?>%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: <?php echo esc_attr($percent_complete); ?>%"></div>
+                    </div>
+                </div>
+            <?php elseif ($skill_level): ?>
                 <div class="skill-progress">
                     <div class="skill-info">
                         <span class="skill-text">Skill Level</span>
-                        <span class="skill-value"><?php echo esc_html($skill_level) ?></span>
+                        <span class="skill-value"><?php echo esc_html($skill_level); ?></span>
                     </div>
                     <div class="progress-bar">
                         <?php
@@ -62,12 +85,13 @@
                         if (strtolower($skill_level) === 'advance') $progress_width = 80;
                         if (strtolower($skill_level) === 'all level') $progress_width = 100;
                         ?>
-                        <div class="progress-fill" style="width: <?php echo $progress_width ?>%"></div>
+                        <div class="progress-fill <?php echo esc_html(strtolower($skill_level)); ?>" style="width: <?php echo $progress_width; ?>%"></div>
                     </div>
                 </div>
             <?php endif; ?>
-            <a href="<?php the_permalink() ?>" class="learn-btn">
-                <span class="btn-text">Explore Course</span>
+
+            <a href="<?php the_permalink(); ?>" class="learn-btn">
+                <span class="btn-text"><?php echo esc_html($button_text); ?></span>
                 <div class="btn-icon">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -75,6 +99,7 @@
                 </div>
             </a>
         </div>
+
     </div>
 
     <div class="card-glow"></div>

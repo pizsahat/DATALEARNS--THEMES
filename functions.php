@@ -1,9 +1,8 @@
 <?php
 
 // ShortCode
-require get_theme_file_path('/shortcode/homepage-content.php');
+require get_theme_file_path('/shortcode/list.php');
 require get_theme_file_path('/shortcode/my-certificates.php');
-require get_theme_file_path('/shortcode/my-courses.php');
 require get_theme_file_path('/shortcode/my-dashboard.php');
 require get_theme_file_path('/shortcode/login.php');
 require get_theme_file_path('/shortcode/register.php');
@@ -18,7 +17,7 @@ require get_theme_file_path('/inc/course-shortcode.php');
 require get_theme_file_path('/inc/custom-field/setting-page.php');
 
 
-function university_custom_rest()
+function datalearns_custom_rest()
 {
   register_rest_field('post', 'authorName', array(
     'get_callback' => function () {
@@ -27,7 +26,7 @@ function university_custom_rest()
   ));
 }
 
-add_action('rest_api_init', 'university_custom_rest');
+add_action('rest_api_init', 'datalearns_custom_rest');
 
 function pageBanner($args = NULL)
 {
@@ -58,24 +57,21 @@ function pageBanner($args = NULL)
 <?php
 }
 
-function university_files()
+function datalearns_files()
 {
-  wp_enqueue_script('main-university-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
+  wp_enqueue_script('main-datalearns-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
   wp_enqueue_style('custom-google-font', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
   wp_enqueue_style('font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-  wp_enqueue_style('university_main_styles', get_theme_file_uri('/build/style-index.css'));
-  wp_enqueue_style('university_extra_styles', get_theme_file_uri('/build/index.css'));
-  wp_enqueue_style('custom-style', get_template_directory_uri() . '/build/style.css');
-  wp_localize_script('main-university-js', 'universityData', array(
+  wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/build/style-index.css'));
+  wp_localize_script('main-datalearns-js', 'datalearnsData', array(
     'root_url' => get_site_url(),
 
   ));
-  wp_enqueue_script('theme-script', get_template_directory_uri() . '/js/scripts.js', array(), '1.0', true);
 }
 
-add_action('wp_enqueue_scripts', 'university_files');
+add_action('wp_enqueue_scripts', 'datalearns_files');
 
-function university_features()
+function datalearns_features()
 {
   register_nav_menu('headerMenuLocation', "Header Menu Location");
   register_nav_menu('footerLocationOne', "Footer Location One");
@@ -87,9 +83,9 @@ function university_features()
   add_image_size('pageBanner', 1500, 350, true);
 }
 
-add_action('after_setup_theme', 'university_features');
+add_action('after_setup_theme', 'datalearns_features');
 
-function university_adjust_queries($query)
+function datalearns_adjust_queries($query)
 {
   if (!is_admin() and is_post_type_archive('program') and is_main_query()) {
     $query->set('orderby', 'title');
@@ -112,7 +108,7 @@ function university_adjust_queries($query)
   }
 }
 
-add_action('pre_get_posts', 'university_adjust_queries');
+add_action('pre_get_posts', 'datalearns_adjust_queries');
 
 function redirectSubsToFrontend()
 {

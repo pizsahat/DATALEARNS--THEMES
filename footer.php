@@ -2,7 +2,7 @@
 $show_footer = get_field('show_footer');
 if (($show_footer || $show_footer === null)) :
 ?> <footer class="modern-footer">
-    <div class="footer-container">
+    <div class="container">
       <div class="footer-grid">
         <div class="footer-column footer-about">
           <a href="https://solusi247.com/" class="footer-logo-link">
@@ -29,16 +29,16 @@ if (($show_footer || $show_footer === null)) :
           <h3 class="footer-heading">Connect With Us</h3>
           <div class="social-links">
             <a href="<?php echo esc_url(get_option('datalearns_facebook_url', 'https://www.facebook.com/datalearns247?_rdc=1&_rdr')); ?>" class="social-link facebook" aria-label="Facebook">
-              <i class="fab fa-facebook-f"></i>
+              <i class="fa fa-facebook-f"></i>
             </a>
             <a href="<?php echo esc_url(get_option('datalearns_youtube_url', 'https://www.youtube.com/@Solusi247itsolution/')); ?>" class="social-link youtube" aria-label="YouTube">
-              <i class="fab fa-youtube"></i>
+              <i class="fa fa-youtube"></i>
             </a>
             <a href="<?php echo esc_url(get_option('datalearns_linkedin_url', 'https://www.linkedin.com/company/datalearns/')); ?>" class="social-link linkedin" aria-label="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
+              <i class="fa fa-linkedin"></i>
             </a>
             <a href="<?php echo esc_url(get_option('datalearns_instagram_url', 'https://www.instagram.com/datalearns247')); ?>" class="social-link instagram" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
+              <i class="fa fa-instagram"></i>
             </a>
           </div>
         </div>
