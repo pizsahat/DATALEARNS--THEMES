@@ -53,91 +53,95 @@
     }
   }
 
-  .wrapper-syllabus-course {
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
+  .wrapper-syllabus-course .item-course-section {
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+    overflow: hidden;
+  }
 
-    .item-course-section {
-      margin-bottom: 20px;
-      border: 1px solid #cacaca;
-      border-radius: 5px;
-      overflow: hidden;
-    }
+  .wrapper-syllabus-course .item-course-section p {
+    background-color: #002d5e;
+    color: #fff;
+    margin: 0;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+  }
 
-    .item-course-section h4 {
-      background-color: #007bff;
-      color: #fff;
-      margin: 0;
-      padding: 10px 15px;
-      font-size: 16px;
-      font-weight: bold;
-    }
+  .wrapper-syllabus-course .item-course-section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-    .item-course-section ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+  .wrapper-syllabus-course .item-course-section li {
+    border-bottom: 1px solid #ddd;
+  }
 
-    .item-course-section a {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      width: 100%;
-    }
-    .item-course-section a:hover {
-      text-decoration: none;
-      background-color: #e6e6e6;
-    }
+  .wrapper-syllabus-course .item-course-section li:last-child {
+    border-bottom: none;
+  }
 
-    .item-course-section ul li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 10px 15px;
-      border-bottom: 1px solid #ddd;
-      font-size: 14px;
-      position: relative;
-      padding-right: 20px;
-    }
+  .wrapper-syllabus-course .item-course-section li a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 15px;
+    font-size: 14px;
+    position: relative;
+  }
 
-    .item-course-section ul li .lesson-content {
-      display: flex;
-      align-items: center;
-      flex: 1;
-      gap: 15px;
-      min-width: 0;
-    }
+  .wrapper-syllabus-course .item-course-section li a:hover {
+    background-color: #e6e6e6;
+  }
 
-    .item-course-section ul li .free-tag,
-    .item-course-section ul li .lesson-progress {
-      white-space: nowrap;
-      margin-left: 10px;
-    }
+  .wrapper-syllabus-course .item-course-section li a .lesson-content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 15px;
+    min-width: 0;
+  }
 
-    .lesson-meta {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      white-space: nowrap;
-    }
+  .wrapper-syllabus-course .item-course-section li a .free-tag,
+  .wrapper-syllabus-course .item-course-section li a .lesson-progress {
+    white-space: nowrap;
+    margin-left: 10px;
+  }
 
-    .free-tag {
-      background-color: #28a745;
-      color: #fff;
-      font-size: 12px;
-      padding: 2px 6px;
-      border-radius: 3px;
-    }
+  .wrapper-syllabus-course .lesson-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+  }
 
-    a.disabled-link {
-      pointer-events: none;
-      text-decoration: none;
-      color: #aaa;
-      background-color: #e7e7e7;
-      border-bottom: 1px solid #ffffff;
-    }
+  .wrapper-syllabus-course .free-tag {
+    background-color: #0f7527;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .wrapper-syllabus-course .disabled-link {
+    pointer-events: none;
+    text-decoration: none;
+    color: #aaa;
+    background-color: #e7e7e7;
+  }
+
+  .wrapper-syllabus-course .disabled-link a {
+    color: #aaa;
+    background-color: #e7e7e7;
+    cursor: default;
+  }
+
+  .wrapper-syllabus-course .disabled-link a:hover {
+    background-color: #e7e7e7;
   }
 
   .row.group.lesson .one-fifth {
