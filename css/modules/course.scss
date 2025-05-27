@@ -53,6 +53,13 @@
     }
   }
 
+  .wrapper-syllabus-course {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .wrapper-syllabus-course .item-course-section {
     border: 1px solid #cacaca;
     border-radius: 5px;

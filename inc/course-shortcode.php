@@ -10,7 +10,6 @@ function CourseSyllabus()
         $course_id = get_the_ID();
     }
     $object = new LLMS_Course($course_id); ?>
-    <br>
     <div class="wrapper-syllabus-course">
         <?php
         $sections = $object->get_sections();
