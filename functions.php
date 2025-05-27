@@ -4,8 +4,6 @@
 require get_theme_file_path('/shortcode/list.php');
 require get_theme_file_path('/shortcode/my-certificates.php');
 require get_theme_file_path('/shortcode/my-dashboard.php');
-require get_theme_file_path('/shortcode/login.php');
-require get_theme_file_path('/shortcode/register.php');
 
 // Routing
 require get_theme_file_path('/inc/course-route.php');
@@ -27,35 +25,6 @@ function datalearns_custom_rest()
 }
 
 add_action('rest_api_init', 'datalearns_custom_rest');
-
-function pageBanner($args = NULL)
-{
-
-  if (!isset($args['title'])) {
-    $args['title'] = get_the_title();
-  }
-  if (!isset($args['subtitle'])) {
-    $args['subtitle'] = get_field('page_banner_subtittle');
-  }
-  if (!isset($args['photo'])) {
-    if (get_field('page_banner_background_image') and !is_archive() and !is_home()) {
-      $args['photo'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
-    } else {
-      $args['photo'] = get_theme_file_uri('/images/datalearns_cover1.jpg');
-    }
-  }
-?>
-  <div class="page-banner">
-    <div class="page-banner__bg-image" style="background-image: url(<?php echo $args['photo'] ?>)"></div>
-    <div class="page-banner__content container">
-      <h1 class="page-banner__title"><?php echo $args['title'] ?></h1>
-      <div class="page-banner__intro">
-        <p><?php echo $args['subtitle'] ?></p>
-      </div>
-    </div>
-  </div>
-<?php
-}
 
 function datalearns_files()
 {
@@ -80,7 +49,6 @@ function datalearns_features()
   add_theme_support('post-thumbnails');
   add_image_size('thumbnailLandscape', 400, 260, true);
   add_image_size('thumbnailPortrait', 480, 650, true);
-  add_image_size('pageBanner', 1500, 350, true);
 }
 
 add_action('after_setup_theme', 'datalearns_features');
@@ -193,7 +161,7 @@ add_action('admin_menu', 'custom_admin_menu_datalearns');
 include_once get_template_directory() . '/inc/dashboard-datalearns/functions.php';
 
 // CUSTOMIZE APPEARANCE
-require get_theme_file_path('/inc/customize-appearance/header.php');
+require get_theme_file_path('/inc/customize-appearance/customizer.php');
 
 add_filter('register_post_type_args', function ($args, $post_type) {
   if ('course' === $post_type) {
@@ -332,18 +300,19 @@ function register_template_parts_post_type()
 
   $args = array(
     'labels'             => $labels,
-    'public'             => true,  // Tidak tampil di frontend
-    'publicly_queryable' => true,
-    'show_ui'            => true,   // Tampil di admin
+    'public'             => true,
+    'publicly_queryable' => false,
+    'exclude_from_search' => true,
+    'show_ui'            => true,
     'show_in_menu'       => true,
     'query_var'          => true,
     'rewrite'            => false,
     'capability_type'    => 'post',
-    'has_archive'        => false,  // Tidak ada archive
+    'has_archive'        => false,
     'hierarchical'       => false,
     'menu_position'      => 20,
     'menu_icon'          => 'dashicons-layout',
-    'supports'           => array('title', 'editor'), // Bisa ditambah 'thumbnail' jika perlu
+    'supports'           => array('title', 'editor'),
     'show_in_rest'       => true,
   );
 

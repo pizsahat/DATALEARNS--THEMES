@@ -15,7 +15,7 @@ while (have_posts()) {
     }
 
     if ($enable_spacing || $enable_spacing === null) {
-        $classes[] = 'vertical-spacing'; // class ini mengatur padding atas & bawah
+        $classes[] = 'vertical-spacing';
     }
 
     $wrapper_attr = !empty($classes) ? ' class="' . esc_attr(implode(' ', $classes)) . '"' : '';
