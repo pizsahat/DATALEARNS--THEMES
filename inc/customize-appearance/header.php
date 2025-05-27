@@ -184,3 +184,47 @@ function theme_dynamic_container_css()
     </style>";
 }
 add_action('wp_head', 'theme_dynamic_container_css');
+
+function theme_customizer_footer_settings($wp_customize)
+{
+    // Panel: Footer
+    $wp_customize->add_panel('footer_settings_panel', array(
+        'title'    => __('Footer', 'text-domain'),
+        'priority' => 160,
+    ));
+
+    // Section: Footer Template
+    $wp_customize->add_section('footer_template_section', array(
+        'title'    => __('Pilih Template Footer', 'text-domain'),
+        'panel'    => 'footer_settings_panel',
+    ));
+
+    // Get all template parts
+    $template_parts = get_posts(array(
+        'post_type'      => 'template_part',
+        'posts_per_page' => -1,
+        'orderby'        => 'title',
+        'order'          => 'ASC',
+    ));
+
+    // Create choices array for the dropdown
+    $choices = array('' => __('-- Pilih Template --', 'text-domain'));
+    foreach ($template_parts as $part) {
+        $choices[$part->ID] = $part->post_title;
+    }
+
+    // Setting
+    $wp_customize->add_setting('selected_footer_template_part', array(
+        'default'   => '',
+        'transport' => 'refresh',
+    ));
+
+    // Control: Dropdown Template Part
+    $wp_customize->add_control('selected_footer_template_part', array(
+        'type'     => 'select',
+        'label'    => __('Gunakan Template Footer', 'text-domain'),
+        'section'  => 'footer_template_section',
+        'choices'  => $choices,
+    ));
+}
+add_action('customize_register', 'theme_customizer_footer_settings');

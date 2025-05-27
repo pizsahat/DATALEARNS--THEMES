@@ -311,3 +311,42 @@ add_filter('register_post_type_args', function ($args, $post_type) {
   }
   return $args;
 }, 20, 2);
+
+function register_template_parts_post_type()
+{
+  $labels = array(
+    'name'               => 'Template Parts',
+    'singular_name'      => 'Template Part',
+    'menu_name'          => 'Template Parts',
+    'name_admin_bar'     => 'Template Part',
+    'add_new'            => 'Tambah Baru',
+    'add_new_item'       => 'Tambah Template Part',
+    'new_item'           => 'Template Part Baru',
+    'edit_item'          => 'Edit Template Part',
+    'view_item'          => 'Lihat Template Part',
+    'all_items'          => 'Semua Template Parts',
+    'search_items'       => 'Cari Template Part',
+    'not_found'          => 'Tidak ditemukan.',
+    'not_found_in_trash' => 'Tidak ditemukan di tong sampah.'
+  );
+
+  $args = array(
+    'labels'             => $labels,
+    'public'             => true,  // Tidak tampil di frontend
+    'publicly_queryable' => true,
+    'show_ui'            => true,   // Tampil di admin
+    'show_in_menu'       => true,
+    'query_var'          => true,
+    'rewrite'            => false,
+    'capability_type'    => 'post',
+    'has_archive'        => false,  // Tidak ada archive
+    'hierarchical'       => false,
+    'menu_position'      => 20,
+    'menu_icon'          => 'dashicons-layout',
+    'supports'           => array('title', 'editor'), // Bisa ditambah 'thumbnail' jika perlu
+    'show_in_rest'       => true,
+  );
+
+  register_post_type('template_part', $args);
+}
+add_action('init', 'register_template_parts_post_type');
