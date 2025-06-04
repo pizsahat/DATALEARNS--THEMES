@@ -23,6 +23,12 @@ class Theme_Customizer
      */
     public static function register_settings($wp_customize)
     {
+        $wp_customize->add_panel('datalearns_panel', [
+            'title' => __('DataLearns Settings', 'datalearns'),
+            'priority' => 3,
+            'description' => __('Custom settings for DataLearns theme', 'datalearns'),
+        ]);
+
         self::register_header_settings($wp_customize);
         self::register_main_settings($wp_customize);
         self::register_global_settings($wp_customize);
@@ -35,15 +41,15 @@ class Theme_Customizer
      */
     private static function register_header_settings($wp_customize)
     {
-        // Header Panel
-        $wp_customize->add_panel('header_settings', [
-            'title' => __('Header', 'text-domain'),
-            'priority' => 30,
-        ]);
+        // // Header Panel
+        // $wp_customize->add_panel('header_settings', [
+        //     'title' => __('Header', 'text-domain'),
+        //     'priority' => 30,
+        // ]);
 
         // Logo Section
         self::add_section_with_settings($wp_customize, [
-            'panel' => 'header_settings',
+            'panel' => 'datalearns_panel',
             'section_id' => 'website_logo_section',
             'section_title' => __('Website Logo', 'text-domain'),
             'settings' => [
@@ -63,11 +69,26 @@ class Theme_Customizer
                     'id' => 'logo_width',
                     'default' => '180',
                     'control' => [
-                        'label' => __('Logo Width (px)', 'text-domain'),
+                        'label' => __('Logo Width Desktop (px)', 'text-domain'),
+                        'description' => __('Logo width for desktop and tablet screens', 'text-domain'),
                         'type' => 'number',
                         'input_attrs' => [
                             'min' => 50,
                             'max' => 500,
+                            'step' => 5,
+                        ]
+                    ]
+                ],
+                [
+                    'id' => 'logo_width_mobile',
+                    'default' => '120',
+                    'control' => [
+                        'label' => __('Logo Width Mobile (px)', 'text-domain'),
+                        'description' => __('Logo width for mobile screens (768px and below)', 'text-domain'),
+                        'type' => 'number',
+                        'input_attrs' => [
+                            'min' => 30,
+                            'max' => 300,
                             'step' => 5,
                         ]
                     ]
@@ -100,15 +121,15 @@ class Theme_Customizer
      */
     private static function register_main_settings($wp_customize)
     {
-        // Main Panel
-        $wp_customize->add_panel('main_settings', [
-            'title' => __('Main', 'text-domain'),
-            'priority' => 40,
-        ]);
+        // // Main Panel
+        // $wp_customize->add_panel('main_settings', [
+        //     'title' => __('Main', 'text-domain'),
+        //     'priority' => 40,
+        // ]);
 
         // Main Layout Section
         self::add_section_with_settings($wp_customize, [
-            'panel' => 'main_settings',
+            'panel' => 'datalearns_panel',
             'section_id' => 'main_layout_section',
             'section_title' => __('Main Layout', 'text-domain'),
             'settings' => [
@@ -147,15 +168,15 @@ class Theme_Customizer
      */
     private static function register_global_settings($wp_customize)
     {
-        // Global Panel
-        $wp_customize->add_panel('global_settings', [
-            'title' => __('Global', 'text-domain'),
-            'priority' => 5,
-        ]);
+        // // Global Panel
+        // $wp_customize->add_panel('global_settings', [
+        //     'title' => __('Global', 'text-domain'),
+        //     'priority' => 5,
+        // ]);
 
         // Container Section
         self::add_section_with_settings($wp_customize, [
-            'panel' => 'global_settings',
+            'panel' => 'datalearns_panel',
             'section_id' => 'container_section',
             'section_title' => __('Container', 'text-domain'),
             'settings' => [
@@ -181,16 +202,16 @@ class Theme_Customizer
      */
     private static function register_footer_settings($wp_customize)
     {
-        // Footer Panel
-        $wp_customize->add_panel('footer_settings_panel', [
-            'title' => __('Footer', 'text-domain'),
-            'priority' => 160,
-        ]);
+        // // Footer Panel
+        // $wp_customize->add_panel('footer_settings_panel', [
+        //     'title' => __('Footer', 'text-domain'),
+        //     'priority' => 160,
+        // ]);
 
         // Footer Template Section
         self::add_template_part_section(
             $wp_customize,
-            'footer_settings_panel',
+            'datalearns_panel',
             'footer_template_section',
             __('Pilih Template Footer', 'text-domain'),
             'selected_footer_template_part',
@@ -203,16 +224,16 @@ class Theme_Customizer
      */
     private static function register_404_settings($wp_customize)
     {
-        // 404 Panel
-        $wp_customize->add_panel('page_404_settings_panel', [
-            'title' => __('404 Page', 'text-domain'),
-            'priority' => 170,
-        ]);
+        // // 404 Panel
+        // $wp_customize->add_panel('page_404_settings_panel', [
+        //     'title' => __('404 Page', 'text-domain'),
+        //     'priority' => 170,
+        // ]);
 
         // 404 Template Section
         self::add_template_part_section(
             $wp_customize,
-            'page_404_settings_panel',
+            'datalearns_panel',
             'page_404_template_section',
             __('Pilih Template 404', 'text-domain'),
             'selected_404_template_part',
@@ -330,6 +351,22 @@ class Theme_Customizer
         $width = get_theme_mod('container_max_width', 1200);
         $css .= ".container {
             max-width: {$width}px;
+        }";
+
+        // Logo width for desktop
+        $logo_width = get_theme_mod('logo_width', 180);
+        $css .= ".site-logo {
+            max-width: {$logo_width}px !important;
+            height: auto;
+        }";
+
+        // Logo width for mobile
+        $logo_width_mobile = get_theme_mod('logo_width_mobile', 120);
+        $css .= "@media (max-width: 768px) {
+            .site-logo {
+                max-width: {$logo_width_mobile}px !important;
+                height: auto;
+            }
         }";
 
         if (!empty($css)) {

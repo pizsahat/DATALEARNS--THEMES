@@ -18,16 +18,18 @@
           <a class="site-footer__link" href="<?php echo site_url() ?>">
             <?php
             $logo_id = get_theme_mod('website_logo', '');
-            $logo_width = get_theme_mod('logo_width', 170);
+            $logo_width = get_theme_mod('logo_width', 180);
+            $logo_width_mobile = get_theme_mod('logo_width_mobile', 120);
 
             if ($logo_id) {
               echo wp_get_attachment_image($logo_id, 'medium', false, array(
                 'alt' => get_bloginfo('name'),
                 'class' => 'site-logo',
-                'style' => 'max-width:' . esc_attr($logo_width) . 'px; height:auto;'
+                'data-desktop-width' => esc_attr($logo_width),
+                'data-mobile-width' => esc_attr($logo_width_mobile)
               ));
             } else {
-              echo '<img src="' . get_template_directory_uri() . '/images/DL247-logo_web.png" alt="' . get_bloginfo('name') . '" class="site-logo" style="max-width:' . esc_attr($logo_width) . 'px; height:auto;">';
+              echo '<img src="' . get_template_directory_uri() . '/images/DL247-logo_web.png" alt="' . get_bloginfo('name') . '" class="site-logo" data-desktop-width="' . esc_attr($logo_width) . '" data-mobile-width="' . esc_attr($logo_width_mobile) . '">';
             }
             ?> </a>
         </h1>
