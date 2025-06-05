@@ -3,7 +3,7 @@ get_header();
 while (have_posts()) {
   the_post(); ?>
 
-  <div class="container vertical-spacing">
+  <div class="site-container">
     <div class="generic-content">
       <?php the_content() ?>
     </div>

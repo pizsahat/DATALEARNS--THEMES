@@ -1,4 +1,4 @@
-<div class="container vertical-spacing">
+<div class="container">
     <div class="error-404-container">
         <div class="error-404-content">
             <div class="error-404-graphic">
@@ -32,7 +32,7 @@
 <style>
     .error-404-container {
         max-width: 680px;
-        margin: 0 auto;
+        margin: 20px auto;
         text-align: center;
         padding: 40px;
         border-radius: 16px;

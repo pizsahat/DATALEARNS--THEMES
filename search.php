@@ -6,8 +6,8 @@
 get_header();
 ?>
 
-<div class="container vertical-spacing">
-    <div class="search-results-container">
+<div class="site-container">
+    <div class="search-results-site-container">
         <h1 class="search-results-title">
             <?php
             printf(
@@ -65,7 +65,7 @@ get_header();
         font-size: 2.5rem;
         font-weight: 700;
         color: #2d3748;
-        margin-bottom: 1.5rem;
+        margin: 1.5rem 0;
         text-align: center;
     }
 

@@ -3,7 +3,7 @@ get_header();
 ?>
 
 <div class="page-header">
-  <div class="container">
+  <div class="site-container">
     <h1 class="page-title">
       <?php
       if (have_posts()) {
@@ -19,7 +19,7 @@ get_header();
   </div>
 </div>
 
-<div class="container vertical-spacing">
+<div class="site-container">
   <?php
   if (have_posts()) :
     while (have_posts()) : the_post();

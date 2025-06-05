@@ -31,7 +31,8 @@ function datalearns_files()
   wp_enqueue_script('main-datalearns-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
   wp_enqueue_style('custom-google-font', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
   wp_enqueue_style('font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-  wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/build/style-index.css'));
+  // wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/build/style-index.css'));
+  wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/css/style.css'));
   wp_localize_script('main-datalearns-js', 'datalearnsData', array(
     'root_url' => get_site_url(),
 
@@ -150,15 +151,6 @@ function custom_admin_menu_datalearns()
     25
   );
 }
-
-function datalearns_page_callback()
-{
-  include_once get_template_directory() . '/inc/dashboard-datalearns/dashboard.php';
-}
-
-add_action('admin_menu', 'custom_admin_menu_datalearns');
-
-include_once get_template_directory() . '/inc/dashboard-datalearns/functions.php';
 
 // CUSTOMIZE APPEARANCE
 require get_theme_file_path('/inc/customize-appearance/customizer.php');
@@ -319,3 +311,16 @@ function register_template_parts_post_type()
   register_post_type('template_part', $args);
 }
 add_action('init', 'register_template_parts_post_type');
+
+add_filter('wp_nav_menu_args', 'custom_conditional_menu_by_login');
+function custom_conditional_menu_by_login($args)
+{
+  if ($args['theme_location'] === 'primary') {
+    if (is_user_logged_in()) {
+      $args['menu'] = 'menu-logged-in';
+    } else {
+      $args['menu'] = 'menu-guest';
+    }
+  }
+  return $args;
+}

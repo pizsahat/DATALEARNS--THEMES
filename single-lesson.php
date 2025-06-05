@@ -26,8 +26,8 @@ while (have_posts()) {
     $course_title = get_the_title($course_id);
 
 ?>
-    <div class="section-course">
-        <div class="container vertical-spacing generic-content">
+    <div class="section-course generic-content">
+        <div class="site-container">
             <h1 style="margin-bottom:var(--wp--preset--spacing--40);" class="wp-block-post-title"><?php the_title(); ?></h1>
             <div class="row group lesson">
                 <div class="two-thirds">
@@ -38,6 +38,7 @@ while (have_posts()) {
                     <?php echo do_shortcode("[lifterlms_course_progress]"); ?>
 
                     <h3>Course Syllabus</h3>
+                    <br>
                     <div class="wrapper-syllabus">
                         <?php
                         $sections = $object->get_sections();

@@ -74,7 +74,7 @@ function ListCourse($atts)
     $courseQuery = new WP_Query($args);
 
     if ($courseQuery->have_posts()) {
-        echo '<div class="archive-course-container">';
+        echo '<div class="archive-course-container" style="margin: 10px 0;">';
         while ($courseQuery->have_posts()) {
             $courseQuery->the_post();
             get_template_part('template-parts/item', 'course');

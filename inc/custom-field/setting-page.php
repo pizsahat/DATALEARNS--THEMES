@@ -27,25 +27,6 @@ function register_acf_page_display_options()
                     'default_value' => 1,
                     'instructions' => 'Aktifkan untuk menampilkan footer pada konten halaman.',
                 ),
-                array(
-                    'key' => 'field_use_container',
-                    'label' => 'Container',
-                    'name' => 'use_container',
-                    'type' => 'true_false',
-                    'ui' => 1,
-                    'default_value' => 1,
-                    'instructions' => 'Aktifkan untuk memberi jarak kiri dan kanan pada konten halaman.',
-
-                ),
-                array(
-                    'key' => 'field_enable_vertical_spacing',
-                    'label' => 'Tampilkan Spasi Vertikal',
-                    'name' => 'enable_vertical_spacing',
-                    'type' => 'true_false',
-                    'ui' => 1,
-                    'default_value' => 1,
-                    'instructions' => 'Aktifkan untuk memberi jarak atas dan bawah pada konten halaman.',
-                ),
             ),
             'location' => array(
                 array(
