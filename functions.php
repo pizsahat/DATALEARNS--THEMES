@@ -33,6 +33,7 @@ function datalearns_files()
   wp_enqueue_style('font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
   // wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/build/style-index.css'));
   wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/css/style.css'));
+  wp_enqueue_script('datalearns_main_script', get_theme_file_uri('/src/index.js'));
   wp_localize_script('main-datalearns-js', 'datalearnsData', array(
     'root_url' => get_site_url(),
 
@@ -324,3 +325,16 @@ function custom_conditional_menu_by_login($args)
   }
   return $args;
 }
+
+// OPTIMAZION SEO
+function custom_meta_description()
+{
+  if (is_singular()) {
+    global $post;
+    $excerpt = strip_tags($post->post_excerpt ?: wp_trim_words($post->post_content, 25));
+    echo '<meta name="description" content="' . esc_attr($excerpt) . '">' . "\n";
+  } else {
+    echo '<meta name="description" content="Selamat datang di Datalearns247">' . "\n";
+  }
+}
+add_action('wp_head', 'custom_meta_description');
