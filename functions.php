@@ -338,3 +338,12 @@ function custom_meta_description()
   }
 }
 add_action('wp_head', 'custom_meta_description');
+
+// OPTIMAZION ACCESIBILITY
+function remove_skip_link()
+{
+  ob_start(function ($html) {
+    return preg_replace('/<a class="skip-link screen-reader-text scroll-ignore" href="#main">Skip to content<\/a>/', '', $html);
+  });
+}
+add_action('wp_loaded', 'remove_skip_link');
