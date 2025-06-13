@@ -57,7 +57,7 @@ while (have_posts()) {
                                 }
                         ?>
                                 <div class="item-course-section <?php echo $section_is_active ? 'active-section' : ''; ?>">
-                                    <h4><?php echo esc_html($section->get('title')); ?> <span class="toggle-icon">&#9660;</span></h4>
+                                    <p><?php echo esc_html($section->get('title')); ?> <span class="toggle-icon">&#9660;</span></p>
                                     <ul style="display: <?php echo $section_is_active ? 'block' : 'none'; ?>;">
                                         <?php
                                         $current_user_id = get_current_user_id();
@@ -126,7 +126,7 @@ get_footer();
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const sections = document.querySelectorAll(".item-course-section h4");
+        const sections = document.querySelectorAll(".item-course-section p");
 
         sections.forEach((section) => {
             const content = section.nextElementSibling;

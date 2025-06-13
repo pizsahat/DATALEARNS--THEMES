@@ -890,39 +890,31 @@
       transform: translateY(-1px);
     }
 
-    .item-course-section h4 {
+    .item-course-section p {
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
       padding: 16px 20px;
-      background: linear-gradient(135deg, #2c3e50, #4a6491);
+      background: #002d5e;
       margin: 0;
-      font-size: 1.1rem;
-      font-weight: 600;
       color: #ffffff;
       transition: all 0.3s ease;
     }
 
-    .item-course-section h4 .toggle-icon {
+    .item-course-section p .toggle-icon {
       font-size: 16px;
       transition: transform 0.3s ease;
       color: #b8c6db;
     }
 
-    .item-course-section.active-section h4 {
-      background: linear-gradient(135deg, #3a5683, #5d7fbd);
-      color: #ffffff;
-      border-bottom: 1px solid #6f95cc;
-    }
-
-    .item-course-section.active-section h4 .toggle-icon {
+    .item-course-section.active-section p .toggle-icon {
       color: #ffffff;
       transform: rotate(180deg);
     }
 
-    .item-course-section h4:hover {
-      background: linear-gradient(135deg, #34495e, #5674a7);
+    .item-course-section p:hover {
+      background: #001933;
     }
 
     .item-course-section ul {
