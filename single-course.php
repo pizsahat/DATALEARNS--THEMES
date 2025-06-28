@@ -5,7 +5,7 @@ while (have_posts()) {
 
 ?>
 
-    <div class="section-course">
+    <div class="the-course-page">
         <div class="site-container">
             <div class="generic-content">
                 <?php

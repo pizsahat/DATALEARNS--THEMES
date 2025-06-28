@@ -29,6 +29,7 @@ class Theme_Customizer
 
         self::register_footer_settings($wp_customize);
         self::register_404_settings($wp_customize);
+        self::single_lesson_settings($wp_customize);
         self::register_archive_settings($wp_customize);
     }
 
@@ -61,6 +62,22 @@ class Theme_Customizer
             __('Pilih Template 404', 'text-domain'),
             'selected_404_template_part',
             __('Gunakan Template 404', 'text-domain')
+        );
+    }
+
+    /**
+     * Register single lesson page settings
+     */
+    private static function single_lesson_settings($wp_customize)
+    {
+        // 404 Template Section
+        self::add_template_part_section(
+            $wp_customize,
+            'datalearns_panel',
+            'single_lesson_template_section',
+            __('Pilih Template Single Lesson', 'text-domain'),
+            'selected_single_lesson_template_part',
+            __('Gunakan Template Single Lesson', 'text-domain')
         );
     }
 

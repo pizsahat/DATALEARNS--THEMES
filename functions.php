@@ -4,12 +4,12 @@
 require get_theme_file_path('/shortcode/list.php');
 require get_theme_file_path('/shortcode/my-certificates.php');
 require get_theme_file_path('/shortcode/my-dashboard.php');
+require get_theme_file_path('/shortcode/course-shortcode.php');
 
 // Routing
 require get_theme_file_path('/inc/course-route.php');
 require get_theme_file_path('/inc/search-route.php');
 require get_theme_file_path('/inc/lesson-route.php');
-require get_theme_file_path('/inc/course-shortcode.php');
 
 // Custom Field
 require get_theme_file_path('/inc/custom-field/setting-page.php');
@@ -347,3 +347,10 @@ function remove_skip_link()
   });
 }
 add_action('wp_loaded', 'remove_skip_link');
+
+// FUNCTION UNTUK MEMATIKAN AUTO EMBED YOUTUBE LESSON
+add_action('wp', function () {
+  if (is_singular('lesson')) {
+    remove_action('lifterlms_single_lesson_before_summary', 'lifterlms_template_single_lesson_video', 20);
+  }
+});
