@@ -976,6 +976,10 @@
       background-color: #fff;
       font-family: Arial, sans-serif;
 
+      img {
+        width: 100%;
+      }
+
       .course-content {
         padding: 20px;
 
