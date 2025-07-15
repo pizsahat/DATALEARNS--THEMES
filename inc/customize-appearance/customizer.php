@@ -31,6 +31,7 @@ class Theme_Customizer
         self::register_404_settings($wp_customize);
         self::single_lesson_settings($wp_customize);
         self::register_archive_settings($wp_customize);
+        self::register_time_based_images($wp_customize);
     }
 
     /**
@@ -106,6 +107,44 @@ class Theme_Customizer
             __('Gunakan Template Archive Course', 'text-domain')
         );
     }
+
+    /**
+     * Register image mobile settings 
+     */
+    private static function register_time_based_images($wp_customize)
+    {
+        $wp_customize->add_section('time_based_images_section', [
+            'title' => __('Pengaturan Gambar Berdasarkan Waktu', 'text-domain'),
+            'panel' => 'datalearns_panel',
+        ]);
+
+        $waktu = [
+            'pagi' => 'Gambar Pagi',
+            'siang' => 'Gambar Siang',
+            'sore' => 'Gambar Sore',
+            'malam' => 'Gambar Malam',
+        ];
+
+        foreach ($waktu as $key => $label) {
+            $setting_id = "image_{$key}";
+
+            $wp_customize->add_setting($setting_id, [
+                'default' => '',
+                'transport' => 'refresh',
+            ]);
+
+            $wp_customize->add_control(new WP_Customize_Image_Control(
+                $wp_customize,
+                $setting_id,
+                [
+                    'label' => __($label, 'text-domain'),
+                    'section' => 'time_based_images_section',
+                    'settings' => $setting_id,
+                ]
+            ));
+        }
+    }
+
 
     /**
      * Helper method to add template part sections

@@ -1263,3 +1263,837 @@
     }
   }
 }
+
+.um-profile-nav,
+.um-profile-body {
+  display: none;
+}
+
+.um-profile-meta {
+  padding-left: 190px !important;
+}
+/* Common Styles */
+.certificate-type-badge {
+  display: inline-block;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.certificate-link {
+  display: inline-block;
+  color: #0a66c2;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-right: 15px;
+}
+
+.certificate-link:hover {
+  text-decoration: underline;
+}
+
+.certificate-actions {
+  margin-top: 10px;
+}
+
+/* Layout 1 - Default Grid Style */
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.certificate-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
+
+.certificate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.certificate-card:hover .certificate-image img {
+  transform: scale(1.05);
+}
+
+.certificate-content {
+  padding: 0 15px;
+}
+
+.certificate-title {
+  font-weight: 600;
+  margin: 8px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.certificate-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.certificate-title a:hover {
+  color: #0a66c2;
+}
+
+.certificate-course {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.certificate-date {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 10px 0;
+}
+
+.certificate-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.certificate-item.linkedin-item {
+  display: flex;
+  margin-bottom: 16px;
+  padding: 20px;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.certificate-image.linkedin-image {
+  width: 140px;
+  height: 100px;
+  min-width: 80px;
+  margin-right: 15px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.certificate-image.linkedin-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.certificate-content.linkedin-content {
+  flex: 1;
+}
+
+.certificate-title.linkedin-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.certificate-title.linkedin-title a:hover {
+  color: #0a66c2;
+  text-decoration: underline;
+}
+
+.certificate-course {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.certificate-date.linkedin-date {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .certificate-item.linkedin-item {
+    flex-direction: column;
+  }
+
+  .certificate-image.linkedin-image {
+    margin-bottom: 15px;
+  }
+
+  .certificate-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Skill Items - View Mode */
+.skill-item {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.skill-item:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.skill-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.skill-percentage {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  background: #e9ecef;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.skill-bar {
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  background: #007bff;
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+/* No Skills Message */
+.no-skills-message {
+  text-align: center;
+  padding: 30px 20px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  color: #666;
+}
+
+.no-skills-message p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Edit Button */
+.edit-btn {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 16px;
+  transition: background 0.2s ease;
+}
+
+.edit-btn:hover {
+  background: #0056b3;
+  text-decoration: none;
+  color: white;
+}
+
+.skill-form-wrapper h4 {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+/* Form Rows */
+.skill-form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.skill-form-row input[type="text"] {
+  flex: 2;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.skill-form-row input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.skill-form-row input[type="number"] {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.skill-form-row input[type="number"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.remove-skill-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.remove-skill-btn:hover {
+  background: #c82333;
+}
+
+/* Add Skill Button */
+.add-skill-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 16px 0;
+  transition: background 0.2s ease;
+}
+
+.add-skill-btn:hover {
+  background: #218838;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.save-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.save-btn:hover {
+  background: #0056b3;
+}
+
+.cancel-btn {
+  background: #6c757d;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #545b62;
+  text-decoration: none;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-skills-wrapper {
+    padding: 15px;
+  }
+
+  .skill-form-wrapper {
+    padding: 20px;
+  }
+
+  .skill-form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skill-form-row input[type="text"],
+  .skill-form-row input[type="number"] {
+    width: 100%;
+  }
+
+  .skill-header {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.contact-icon {
+  width: 22px;
+  margin-right: 10px;
+  color: #0073aa;
+}
+
+.contact-label {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.experience-item {
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.experience-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.company-logo {
+  flex-shrink: 0;
+}
+
+.company-logo img {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+}
+
+.experience-details {
+  flex: 1;
+}
+
+.position-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 4px 0;
+}
+
+.company-info {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.company-name {
+  font-weight: 500;
+}
+
+.employment-type {
+  color: #888;
+}
+
+.date-location {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.experience-description {
+  margin-top: 12px;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.experience-description p {
+  margin: 0;
+}
+
+.experience-description.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.see-more-btn {
+  color: #0073aa;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 8px;
+  display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.see-more-btn:hover {
+  color: blue;
+  background: none;
+}
+
+.no-experience-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+/* Form Styles */
+.experience-form-wrapper {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.experience-form-row {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.current-job-checkbox {
+  width: auto !important;
+  margin-right: 8px;
+}
+
+.remove-experience-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.remove-experience-btn:hover {
+  background: #c82333;
+}
+
+.add-experience-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.add-experience-btn:hover {
+  background: #218838;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.save-btn {
+  background: #0073aa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #005a87;
+}
+
+.cancel-btn {
+  background: #6c757d;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.cancel-btn:hover {
+  background: #5a6268;
+  color: white;
+}
+
+.education-item {
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.education-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.school-logo {
+  flex-shrink: 0;
+}
+
+.school-logo img {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+}
+
+.education-details {
+  flex: 1;
+}
+
+.school-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 4px 0;
+}
+
+.degree-info {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.degree-name {
+  font-weight: 500;
+}
+
+.date-range {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.education-description {
+  margin-top: 12px;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.education-description p {
+  margin: 0;
+}
+
+.education-description.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.see-more-btn {
+  color: #0073aa;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 8px;
+  display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.see-more-btn:hover {
+  color: blue;
+  background: none;
+}
+
+.no-education-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+/* Form Styles */
+.education-form-wrapper {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.education-form-row {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.current-education-checkbox {
+  width: auto !important;
+  margin-right: 8px;
+}
+
+.remove-education-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.remove-education-btn:hover {
+  background: #c82333;
+}
+
+.add-education-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.add-education-btn:hover {
+  background: #218838;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.save-btn {
+  background: #0073aa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #005a87;
+}
+
+.cancel-btn {
+  background: #6c757d;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.cancel-btn:hover {
+  background: #5a6268;
+  color: white;
+}

@@ -5,13 +5,16 @@ require get_theme_file_path('/shortcode/list.php');
 require get_theme_file_path('/shortcode/my-certificates.php');
 require get_theme_file_path('/shortcode/my-dashboard.php');
 require get_theme_file_path('/shortcode/course-shortcode.php');
+require get_theme_file_path('/shortcode/Profile/profile.php');
 
 // Routing
+require get_theme_file_path('/inc/mobile-image-route.php');
 require get_theme_file_path('/inc/course-route.php');
 require get_theme_file_path('/inc/search-route.php');
 require get_theme_file_path('/inc/lesson-route.php');
 
 // Custom Field
+require get_theme_file_path('/inc/custom-field/course-image-mobile.php');
 require get_theme_file_path('/inc/custom-field/setting-page.php');
 
 
@@ -31,7 +34,6 @@ function datalearns_files()
   wp_enqueue_script('main-datalearns-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
   wp_enqueue_style('custom-google-font', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
   wp_enqueue_style('font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-  // wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/build/style-index.css'));
   wp_enqueue_style('datalearns_main_styles', get_theme_file_uri('/css/style.css'));
   wp_enqueue_script('datalearns_main_script', get_theme_file_uri('/src/index.js'));
   wp_localize_script('main-datalearns-js', 'datalearnsData', array(
@@ -352,5 +354,13 @@ add_action('wp_loaded', 'remove_skip_link');
 add_action('wp', function () {
   if (is_singular('lesson')) {
     remove_action('lifterlms_single_lesson_before_summary', 'lifterlms_template_single_lesson_video', 20);
+  }
+});
+
+add_action('wp_head', function () {
+  if (isset($_GET['um_action']) && $_GET['um_action'] === 'edit') {
+    echo '<style>.um-profile-nav, .um-profile-body { display: block !important; }</style>';
+  } else {
+    echo '<style>.um-profile-nav, .um-profile-body { display: none !important; }</style>';
   }
 });

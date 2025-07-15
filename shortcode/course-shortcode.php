@@ -6,15 +6,15 @@ function CourseSyllabus($atts = [])
 {
     ob_start();
 
-    // Ambil atribut dari shortcode, default: only_active = "no"
+
     $atts = shortcode_atts([
         'only_active' => 'no',
     ], $atts);
 
-    // Ambil course ID berdasarkan lesson saat ini (jika di halaman lesson)
+
     $course_id = get_post_meta(get_the_ID(), '_llms_parent_course', true);
     if (!$course_id) {
-        $course_id = get_the_ID(); // fallback: course page
+        $course_id = get_the_ID();
     }
 
     $object = new LLMS_Course($course_id);
@@ -26,7 +26,7 @@ function CourseSyllabus($atts = [])
             $lessons = $section->get_lessons();
             $section_is_active = false;
 
-            // Cek apakah lesson saat ini ada di section ini
+
             if (!empty($lessons)) {
                 foreach ($lessons as $lesson) {
                     if (get_permalink($lesson->get("id")) === get_permalink()) {
@@ -36,7 +36,7 @@ function CourseSyllabus($atts = [])
                 }
             }
 
-            // Jika only_active=yes dan section ini bukan yang aktif, lewati
+
             if ($atts['only_active'] === 'yes' && !$section_is_active) {
                 continue;
             }
@@ -44,7 +44,7 @@ function CourseSyllabus($atts = [])
             echo '<div class="item-course-section">';
             echo '<div class="section-header">';
             echo '<span class="section-title">' . esc_html($section->get('title')) . '</span>';
-            echo '<span class="section-arrow">▼</span>'; // atau pakai <svg> / <i class="fa fa-chevron-down">
+            echo '<span class="section-arrow">▼</span>';
             echo '</div>';
             echo '<ul class="section-content ' . ($section_is_active ? '' : 'collapsed') . '">';
 
@@ -90,7 +90,7 @@ function CourseSyllabus($atts = [])
         echo '<p>No sections found for this course.</p>';
     }
 
-    // Tambahkan JS hanya sekali saja
+
 ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -116,72 +116,77 @@ function CourseInfo($atts = [])
 {
     ob_start();
 
-    // Ambil atribut parameter shortcode
     $atts = shortcode_atts([
         'show_icons' => 'yes',
+        'fields'     => '',
     ], $atts);
 
     $show_icons = $atts['show_icons'] === 'yes';
+    $selected_fields = array_filter(array_map('trim', explode(',', $atts['fields'])));
 
     $course_id = get_post_meta(get_the_ID(), '_llms_parent_course', true);
     if (!$course_id) {
         $course_id = get_the_ID();
     }
 
-    $object = new LLMS_Course($course_id);
+    $acf_fields = get_fields($course_id);
+    if (!$acf_fields) {
+        return '<p>No course info available.</p>';
+    }
 
-    // Definisikan data info dan ikon-nya
-    $course_info = [
-        [
-            'label' => 'Course code',
-            'value' => get_field('course_code'),
-            'icon'  => '<i class="fa fa-barcode"></i>'
-        ],
-        [
-            'label' => 'Course type',
-            'value' => get_field('course_type'),
-            'icon'  => '<i class="fa fa-tag"></i>'
-        ],
-        [
-            'label' => 'Duration',
-            'value' => get_field('duration'),
-            'icon'  => '<i class="fa fa-clock"></i>'
-        ],
-        [
-            'label' => 'Skill level',
-            'value' => get_field('skill_level'),
-            'icon'  => '<i class="fa fa-signal"></i>'
-        ],
-        [
-            'label' => 'Course Format',
-            'value' => get_field('course_format'),
-            'icon'  => '<i class="fa fa-tv"></i>'
-        ]
-    ];
+    $output_fields = [];
+
+    $blacklist_fields = ['chat_flow_id'];
+
+    foreach ($acf_fields as $key => $value) {
+        if (in_array($key, $blacklist_fields)) continue;
+        if (str_ends_with($key, '_icon')) continue;
+
+        if (!empty($selected_fields) && !in_array($key, $selected_fields)) {
+            continue;
+        }
+
+        $icon_key = $key . '_icon';
+        $icon = isset($acf_fields[$icon_key]) ? $acf_fields[$icon_key] : '';
+        $label = ucwords(str_replace('_', ' ', $key));
+
+        $output_fields[] = [
+            'label' => $label,
+            'value' => $value,
+            'icon'  => $icon
+        ];
+    }
+
+
+    if (empty($output_fields)) {
+        return '<p>No matching course info found.</p>';
+    }
 ?>
 
     <table class="course-info">
-        <?php foreach ($course_info as $info): ?>
+        <?php foreach ($output_fields as $info): ?>
             <tr>
                 <td>
-                    <?php if ($show_icons) echo '<span style="margin-right: 6px;">' . $info['icon'] . '</span>'; ?>
+                    <?php if ($show_icons && $info['icon']): ?>
+                        <span style="margin-right: 6px;"><?php echo $info['icon']; ?></span>
+                    <?php endif; ?>
                     <?php echo esc_html($info['label']); ?>:
                 </td>
-
                 <td><?php echo esc_html($info['value']); ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
 
     <?php
-    if (llms_is_user_enrolled(get_current_user_id(), get_the_ID())) {
-        echo do_shortcode('[lifterlms_course_continue_button course_id="' . get_the_ID() . '"]');
+    if (function_exists('llms_is_user_enrolled') && llms_is_user_enrolled(get_current_user_id(), $course_id)) {
+        echo do_shortcode('[lifterlms_course_continue_button course_id="' . $course_id . '"]');
     } else {
-        echo do_shortcode('[lifterlms_pricing_table product="' . get_the_ID() . '"]');
+        echo do_shortcode('[lifterlms_pricing_table product="' . $course_id . '"]');
     }
 
     return ob_get_clean();
 }
+
 
 add_shortcode('llms_lesson_content', function () {
     $lesson = llms_get_post(get_the_ID());
@@ -203,7 +208,7 @@ add_shortcode('llms_lesson_video', function ($atts) {
 
     $video_embed = wp_oembed_get($lesson->get('video_embed'));
 
-    // Hanya tambahkan script jika auto_complete aktif
+
     if ($atts['auto_complete'] === 'true') {
         add_action('wp_footer', function () {
             echo '<style>#llms_mark_complete { display: none !important; }</style>';
@@ -229,7 +234,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
     $video_embed = $lesson->get('video_embed');
     $video_id = extract_youtube_video_id($video_embed);
 
-    // Check lesson status - perbaiki cara pengecekan
+
     $student = llms_get_student($user_id);
     $course_id = $lesson->get('parent_course');
     $is_enrolled = $student && $course_id ? $student->is_enrolled($course_id) : false;
@@ -241,7 +246,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
         (function() {
             'use strict';
 
-            // Configuration
+
             const CONFIG = {
                 isLessonComplete: <?php echo $is_lesson_complete ? 'true' : 'false'; ?>,
                 isEnrolled: <?php echo $is_enrolled ? 'true' : 'false'; ?>,
@@ -253,20 +258,20 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                 ajaxUrl: "<?php echo admin_url('admin-ajax.php'); ?>"
             };
 
-            // State management
+
             let player = null;
             let alertShown = false;
             let completionInterval = null;
             let playerReady = false;
 
-            // Debug logging
+
             function debugLog(message, data = null) {
                 if (CONFIG.debug) {
                     console.log('[LLMS Auto-Complete]', message, data || '');
                 }
             }
 
-            // Initialize when DOM is ready
+
             document.addEventListener("DOMContentLoaded", function() {
                 debugLog('DOM loaded, initializing...');
                 initializeVideoPlayer();
@@ -275,14 +280,14 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
             function initializeVideoPlayer() {
                 debugLog('Initializing video player...');
 
-                // Tunggu sampai video embed selesai dimuat
+
                 setTimeout(() => {
                     setupVideoContainers();
                 }, 500);
             }
 
             function setupVideoContainers() {
-                // Cari container video dengan berbagai selector
+
                 const selectors = [
                     '.llms-video-wrapper',
                     '.wp-block-embed__wrapper',
@@ -296,7 +301,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                 let videoContainer = null;
                 let iframe = null;
 
-                // Cari container dan iframe
+
                 for (const selector of selectors) {
                     const elements = document.querySelectorAll(selector);
                     if (elements.length > 0) {
@@ -320,19 +325,19 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                     return;
                 }
 
-                // Setup iframe untuk YouTube API
+
                 const currentSrc = iframe.src;
                 if (!currentSrc.includes('enablejsapi=1')) {
                     const separator = currentSrc.includes('?') ? '&' : '?';
                     iframe.src = currentSrc + separator + 'enablejsapi=1&origin=' + encodeURIComponent(window.location.origin);
                 }
 
-                // Assign ID untuk iframe
+
                 if (!iframe.id) {
                     iframe.id = 'llms-youtube-player';
                 }
 
-                // Load YouTube API
+
                 loadYouTubeAPI();
             }
 
@@ -351,7 +356,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                 const firstScriptTag = document.getElementsByTagName('script')[0];
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-                // Set global callback
+
                 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
             }
 
@@ -366,7 +371,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                     return;
                 }
 
-                // Cari iframe YouTube yang sudah ada
+
                 const iframe = document.querySelector('iframe[src*="youtube"]');
                 if (!iframe) {
                     debugLog('No YouTube iframe found for player initialization');
@@ -377,12 +382,12 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                 iframe.id = playerId;
 
                 try {
-                    // Destroy existing player if any
+
                     if (window.player && typeof window.player.destroy === 'function') {
                         window.player.destroy();
                     }
 
-                    // Create new player
+
                     player = new YT.Player(playerId, {
                         events: {
                             'onReady': onPlayerReady,
@@ -391,7 +396,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                         }
                     });
 
-                    // Make player globally accessible for debugging
+
                     window.player = player;
 
                     debugLog('YouTube player initialized successfully', {
@@ -403,7 +408,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                 } catch (error) {
                     debugLog('Error initializing YouTube player:', error);
 
-                    // Fallback: retry after a delay
+
                     setTimeout(() => {
                         retryPlayerInit(playerId);
                     }, 2000);
@@ -429,7 +434,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                 playerReady = true;
                 debugLog('Player ready');
 
-                // Pre-check conditions
+
                 if (!CONFIG.isEnrolled) {
                     debugLog('User not enrolled, auto-complete disabled');
                     return;
@@ -506,10 +511,10 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                 alertShown = true;
                 debugLog('Completing lesson...');
 
-                // Update UI immediately
+
                 updateUIComplete();
 
-                // Send completion request
+
                 markLessonComplete();
 
                 stopCompletionTracking();
@@ -518,7 +523,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
             function updateUIComplete() {
                 debugLog('Updating UI to complete state');
 
-                // Update check icon
+
                 const currentLesson = document.querySelector('.current-lesson, .llms-lesson-complete');
                 if (currentLesson) {
                     const checkIcon = currentLesson.querySelector('.fa-check-circle, .fa-check');
@@ -528,12 +533,12 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                     }
                 }
 
-                // Update complete button
+
                 const markCompleteButton = document.getElementById("llms_mark_complete");
                 if (markCompleteButton && !markCompleteButton.disabled) {
                     markCompleteButton.click();
 
-                    // Or replace with completed message
+
                     setTimeout(() => {
                         const completedDiv = document.createElement("div");
                         completedDiv.classList.add("llms-lesson-button-wrapper", "completed");
@@ -549,7 +554,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
             function markLessonComplete() {
                 debugLog('Sending completion request to server...');
 
-                // Sesuaikan dengan format yang diharapkan handler Anda
+
                 const formData = new URLSearchParams({
                     action: 'mark_lesson_complete',
                     user_id: CONFIG.userId,
@@ -573,15 +578,15 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                         if (data.success) {
                             debugLog('Lesson marked as complete successfully');
 
-                            // Update CONFIG state
+
                             CONFIG.isLessonComplete = true;
 
-                            // Trigger page refresh untuk update UI LifterLMS
+
                             setTimeout(() => {
                                 window.location.reload();
                             }, 1000);
 
-                            // Trigger custom event
+
                             const event = new CustomEvent('llms_lesson_completed', {
                                 detail: {
                                     lessonId: CONFIG.lessonId,
@@ -598,12 +603,12 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
                     });
             }
 
-            // Cleanup on page unload
+
             window.addEventListener('beforeunload', function() {
                 stopCompletionTracking();
             });
 
-            // Global access for debugging
+
             if (CONFIG.debug) {
                 window.llmsAutoComplete = {
                     player: () => player,
@@ -640,7 +645,7 @@ function generate_auto_complete_script($complete_seconds = 20, $debug = 'false')
     return ob_get_clean();
 }
 
-// Helper function to extract YouTube video ID
+
 function extract_youtube_video_id($url)
 {
     if (empty($url)) return '';

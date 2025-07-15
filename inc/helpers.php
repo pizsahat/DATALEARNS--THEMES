@@ -35,7 +35,7 @@ function check_has_video($content)
 function title_link($post_id)
 {
     $post_permalink = wp_make_link_relative(get_permalink($post_id));
-    $post_title = get_the_title($post_id);
+    $post_title = html_entity_decode(get_the_title($post_id));
     $post_hreflang = 'en';
 
     return '<a href="' . esc_url($post_permalink) . '" hreflang="' . esc_attr($post_hreflang) . '">' . esc_html($post_title) . '</a>';
@@ -154,7 +154,7 @@ function get_post_details($post_id)
             'created' => $time_diff,
             'field_display_name' => get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
             'user_picture' => get_avatar_url(get_the_author_meta('ID', get_post_field('post_author', $post_id))),
-            'field_image' => get_the_post_thumbnail_url($post_id) ?: get_default_image(),
+            'field_image' => get_field('featured_course_image_mobile', $post_id) ?: get_default_image(),
             'categories' => $category_names,
             'progress' => $object->get_percent_complete(),
             'price' => (int) $price,
@@ -221,7 +221,7 @@ function get_post_details($post_id)
             'created' => $time_diff,
             'field_display_name' => get_the_author_meta('display_name', get_post_field('post_author', $post_id)),
             'user_picture' => get_avatar_url(get_the_author_meta('ID', get_post_field('post_author', $post_id))),
-            'field_image' => get_the_post_thumbnail_url($post_id) ?: get_default_image(),
+            'field_image' => get_field('featured_course_image_mobile', $post_id) ?: get_default_image(),
             'body' => apply_filters('the_content', $post->post_content),
             'id' => $post_id
         );
@@ -239,9 +239,9 @@ function get_post_details($post_id)
 
                 $links[] = array(
                     'id' => $link->ID,
-                    'title' => get_the_title($link->ID),
+                    'title' => html_entity_decode(get_the_title($link->ID)),
                     'has_video' => $has_video_list_value,
-                    'image' => get_the_post_thumbnail_url($link->ID)
+                    'image' => get_field('featured_course_image_mobile', $link->ID) ?: get_default_image()
                 );
             }
         }
@@ -259,8 +259,8 @@ function get_post_list($post_id = null)
     $post_type = get_post_type($id);
 
     $post_data = array(
-        'title'        => get_the_title($id),
-        'image'        => get_the_post_thumbnail_url($id) ?: get_default_image($id),
+        'title'        => html_entity_decode(get_the_title($id)),
+        'image'        => get_field('featured_course_image_mobile', $id) ?: get_default_image($id),
         'tag'          => $post_type,
         'author'       => get_the_author_meta('display_name', get_post_field('post_author', $id)),
         'author_photo' => get_avatar_url(get_post_field('post_author', $id)),
