@@ -114,36 +114,53 @@ class Theme_Customizer
     private static function register_time_based_images($wp_customize)
     {
         $wp_customize->add_section('time_based_images_section', [
-            'title' => __('Pengaturan Gambar Berdasarkan Waktu', 'text-domain'),
+            'title' => __('Pengaturan Gambar & Teks Berdasarkan Waktu', 'text-domain'),
             'panel' => 'datalearns_panel',
         ]);
 
         $waktu = [
-            'pagi' => 'Gambar Pagi',
-            'siang' => 'Gambar Siang',
-            'sore' => 'Gambar Sore',
-            'malam' => 'Gambar Malam',
+            'pagi' => 'Pagi',
+            'siang' => 'Siang',
+            'sore' => 'Sore',
+            'malam' => 'Malam',
         ];
 
         foreach ($waktu as $key => $label) {
-            $setting_id = "image_{$key}";
+            $image_setting_id = "image_{$key}";
+            $text_setting_id = "text_{$key}";
 
-            $wp_customize->add_setting($setting_id, [
+            // Gambar
+            $wp_customize->add_setting($image_setting_id, [
                 'default' => '',
                 'transport' => 'refresh',
             ]);
 
             $wp_customize->add_control(new WP_Customize_Image_Control(
                 $wp_customize,
-                $setting_id,
+                $image_setting_id,
                 [
-                    'label' => __($label, 'text-domain'),
+                    'label' => __("Gambar {$label}", 'text-domain'),
                     'section' => 'time_based_images_section',
-                    'settings' => $setting_id,
+                    'settings' => $image_setting_id,
                 ]
             ));
+
+            // Teks
+            $wp_customize->add_setting($text_setting_id, [
+                'default' => '',
+                'transport' => 'refresh',
+                'sanitize_callback' => 'sanitize_text_field',
+            ]);
+
+            $wp_customize->add_control($text_setting_id, [
+                'label' => __("Teks {$label}", 'text-domain'),
+                'type' => 'text',
+                'section' => 'time_based_images_section',
+                'settings' => $text_setting_id,
+            ]);
         }
     }
+
 
 
     /**

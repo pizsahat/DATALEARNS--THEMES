@@ -9,12 +9,15 @@ add_action('rest_api_init', function () {
 
 function get_gambar_waktu_api()
 {
-    $data = [
-        'pagi'  => get_theme_mod('image_pagi') ?: '',
-        'siang' => get_theme_mod('image_siang') ?: '',
-        'sore'  => get_theme_mod('image_sore') ?: '',
-        'malam' => get_theme_mod('image_malam') ?: '',
-    ];
+    $waktu = ['pagi', 'siang', 'sore', 'malam'];
+    $data = [];
+
+    foreach ($waktu as $key) {
+        $data[$key] = [
+            'image' => get_theme_mod("image_{$key}") ?: '',
+            'text'  => get_theme_mod("text_{$key}") ?: '',
+        ];
+    }
 
     return rest_ensure_response($data);
 }
