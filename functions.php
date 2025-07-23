@@ -8,7 +8,7 @@ require get_theme_file_path('/shortcode/course-shortcode.php');
 require get_theme_file_path('/shortcode/Profile/profile.php');
 
 // Routing
-require get_theme_file_path('/inc/mobile-image-route.php');
+require get_theme_file_path('/inc/greeting-route.php');
 require get_theme_file_path('/inc/course-route.php');
 require get_theme_file_path('/inc/search-route.php');
 require get_theme_file_path('/inc/lesson-route.php');

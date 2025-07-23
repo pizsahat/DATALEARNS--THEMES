@@ -1,6 +1,6 @@
 <?php
 add_action('rest_api_init', function () {
-    register_rest_route('wp/v2', '/greeting-image', [
+    register_rest_route('wp/v2', '/greeting', [
         'methods'  => 'GET',
         'callback' => 'get_gambar_waktu_api',
         'permission_callback' => '__return_true',
