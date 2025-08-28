@@ -6,11 +6,10 @@ function CourseSyllabus($atts = [])
 {
     ob_start();
 
-
     $atts = shortcode_atts([
         'only_active' => 'no',
+        'active_section' => '',
     ], $atts);
-
 
     $course_id = get_post_meta(get_the_ID(), '_llms_parent_course', true);
     if (!$course_id) {
@@ -22,10 +21,12 @@ function CourseSyllabus($atts = [])
 
     if (!empty($sections)) {
         echo '<div class="wrapper-syllabus-course">';
-        foreach ($sections as $section) {
+
+        foreach ($sections as $section_index => $section) {
             $lessons = $section->get_lessons();
             $section_is_active = false;
 
+            $section_number = $section_index + 1;
 
             if (!empty($lessons)) {
                 foreach ($lessons as $lesson) {
@@ -36,8 +37,32 @@ function CourseSyllabus($atts = [])
                 }
             }
 
+            $force_active = false;
+            if (!empty($atts['active_section'])) {
+                $active_sections = explode(',', $atts['active_section']);
+                foreach ($active_sections as $active_section) {
+                    $active_section = trim($active_section);
 
-            if ($atts['only_active'] === 'yes' && !$section_is_active) {
+                    if (strpos($active_section, '-') !== false) {
+                        $range = explode('-', $active_section);
+                        if (count($range) === 2) {
+                            $start = (int)trim($range[0]);
+                            $end = (int)trim($range[1]);
+                            if ($section_number >= $start && $section_number <= $end) {
+                                $force_active = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        if ((int)$active_section === $section_number) {
+                            $force_active = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if ($atts['only_active'] === 'yes' && !$section_is_active && !$force_active) {
                 continue;
             }
 
@@ -46,7 +71,9 @@ function CourseSyllabus($atts = [])
             echo '<span class="section-title">' . esc_html($section->get('title')) . '</span>';
             echo '<span class="section-arrow">▼</span>';
             echo '</div>';
-            echo '<ul class="section-content ' . ($section_is_active ? '' : 'collapsed') . '">';
+
+            $is_expanded = $section_is_active || $force_active;
+            echo '<ul class="section-content ' . ($is_expanded ? '' : 'collapsed') . '">';
 
             $current_user_id = get_current_user_id();
             $student = new LLMS_Student($current_user_id);
@@ -90,7 +117,6 @@ function CourseSyllabus($atts = [])
         echo '<p>No sections found for this course.</p>';
     }
 
-
 ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -108,7 +134,6 @@ function CourseSyllabus($atts = [])
 
     return ob_get_clean();
 }
-
 
 add_shortcode('course-info', 'CourseInfo');
 
