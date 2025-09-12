@@ -214,8 +214,8 @@ function CourseInfo($atts = [])
 
 
 add_shortcode('llms_lesson_content', function () {
-    $lesson = llms_get_post(get_the_ID());
-    return $lesson ? apply_filters('the_content', $lesson->get('content')) : '';
+    $lesson = get_post(get_the_ID());
+    return $lesson ? apply_filters('the_content', $lesson->post_content) : '';
 });
 
 add_shortcode('llms_lesson_video', function ($atts) {
